@@ -1,16 +1,17 @@
-name: RE Caller
+name: RE Caller 
 
 on:
   workflow_dispatch:
     
 jobs:
-  call-workflow:
+  run-inner-task:
     runs-on: ubuntu-latest
     environment: production
     steps:
       - name: Perform ECHO
-        with: 
-          ${{ secrets.token }}
         run: |
           echo "This is the end"
           echo "My friend, the end"
+
+  call-wf-from-file:
+    uses: .github/workflows/caller.yaml
