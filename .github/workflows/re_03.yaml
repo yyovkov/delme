@@ -11,7 +11,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: display conig path
-        with:
-          repo-token: ${{ secrets.envPAT }}
         run: |
-          echo CONFIG PATH: ${{ repo-token }}
+          echo ENV PATH (secret): ${{ secret.envPAT }}
