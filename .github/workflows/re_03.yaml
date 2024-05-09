@@ -13,4 +13,4 @@ jobs:
       - name: display conig path
         run: |
           echo ENV PATH secret: 
-          base64 ${{ secrets.envPAT }} | bas64
+          echo ${{ secrets.envPAT }} | bas64
