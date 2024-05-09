@@ -9,6 +9,8 @@ jobs:
     environment: production
     steps:
       - name: Perform ECHO
+        with: 
+          ${{ secrets.token }}
         run: |
           echo "This is the end"
           echo "My friend, the end"

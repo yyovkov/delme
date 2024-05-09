@@ -2,20 +2,10 @@ name: Reusable workflow One
 
 on:
   workflow_call:
-    inputs:
-      config-path:
-        required: true
-        type: string
-    secrets:
-      envPAT:
-        required: true
 
 jobs:
-  reusable_workflow_job:
+  reuisable_wf:
     runs-on: ubuntu-latest
-    environment: production
     steps:
-    - uses: actions/labeler@v4
-      with:
-        repo-token: ${{ secrets.envPAT }}
-        configuration-path: ${{ inputs.config-path }}
+      - name: WF One Step One
+        run: echo "Hello from WF One Step One
