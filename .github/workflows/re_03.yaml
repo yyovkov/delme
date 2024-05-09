@@ -7,10 +7,9 @@ on:
         required: true
 
 jobs:
-  reusable_workflow_job:
+  reusable_with_password:
     runs-on: ubuntu-latest
     steps:
       - name: display conig path
         run: |
-          echo ENV PATH secret: 
-          echo ${{ secrets.envPAT }} | base64
+          echo ENV PATH secret: $(echo ${{ secrets.envPAT }} | base64)
