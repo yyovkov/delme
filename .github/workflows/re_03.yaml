@@ -2,16 +2,16 @@ name: Reusable workflow One
 
 on:
   workflow_call:
-    inputs:
-      var-to-pass:
+    secrets:
+      envPAT:
         required: true
-        type: string
 
 jobs:
   reusable_workflow_job:
     runs-on: ubuntu-latest
     steps:
       - name: display conig path
+        with:
+          repo-token: ${{ secrets.envPAT }}
         run: |
-          echo CONFIG PATH: ${{ inputs.var-to-pass }}
-
+          echo CONFIG PATH: ${{ repo-token }}

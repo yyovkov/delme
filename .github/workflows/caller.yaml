@@ -19,5 +19,11 @@ jobs:
   call-wf-pass-named-input:
     # pass named inputs
     with:
-      config-path: ./github/labeler.yaml
+      var-to-pass: ./github/labeler.yaml
     uses: ./.github/workflows/re_02.yaml
+
+  call-wf-pass-secret:
+    # pass secret to reusable workflow
+    uses: ./.github/workflows/re_03.yaml
+    secrets:
+      envPAT: ${{ secrets.token}}
