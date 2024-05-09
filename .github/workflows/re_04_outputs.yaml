@@ -16,6 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: step1
-        run: echo "firstword=hello" >> $GITHUB_OUPUT"
+        run: echo "firstword=hello" >> $GITHUB_OUPUT
       - id: step2
         run: echo "secondword=world" >> $GITHUB_OUTPUT
