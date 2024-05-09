@@ -24,6 +24,6 @@ jobs:
 
   call-wf-pass-secret:
     # pass secret to reusable workflow
-    uses: ./.github/workflows/re_03.yaml
     secrets:
-      envPAT: ${{ secrets.token}}
+      envPAT: ${{ secrets.token }}
+    uses: ./.github/workflows/re_03.yaml
