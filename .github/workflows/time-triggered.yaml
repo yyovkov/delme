@@ -2,7 +2,7 @@ name: Time triggered
 
 on:
   schedule:
-    - cron: '50 11 * * *' # At 08:00 AM every day
+    - cron: '*/5 * * * *'
 
 jobs:
   my_scheduled_job:
