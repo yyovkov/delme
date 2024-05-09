@@ -13,5 +13,11 @@ jobs:
           echo "This is the end"
           echo "My friend, the end"
 
-  call-wf-from-file:
-    uses: ./.github/workflows/re_one.yaml
+  call-wf:
+    uses: ./.github/workflows/re_01.yaml
+
+  call-wf-pass-named-input:
+    # pass named inputs
+    with:
+      config-path: ./github/labeler.yaml
+    uses: ./.github/workflows/re_02.yaml
