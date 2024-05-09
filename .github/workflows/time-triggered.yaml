@@ -12,4 +12,4 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run a script
-        run: echo "Run every day at day at 14:30 AM UTC!"
+        run: date
