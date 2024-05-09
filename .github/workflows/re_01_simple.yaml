@@ -1,4 +1,4 @@
-name: Reusable workflow One
+name: Reusable Workflow Simple
 
 on:
   workflow_call:

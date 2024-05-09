@@ -13,19 +13,31 @@ jobs:
           echo "This is the end"
           echo "My friend, the end"
 
-  call-wf:
-    uses: ./.github/workflows/re_01.yaml
+  call-rwf:
+    name: Call Reusable Workflow
+    uses: ./.github/workflows/re_01_simple.yaml
 
-  call-wf-pass-named-input:
-    name: Invokke reusable jobe and pass variable to it
+  call-rwf-pass-named-input:
+    name: Call Reusable Workflow and Pass Variable to it
     # pass named inputs
     with:
       var-to-pass: ./github/labeler.yaml
-    uses: ./.github/workflows/re_02.yaml
+    uses: ./.github/workflows/re_02_input.yaml
 
-  call-wf-pass-secret:
-    name: Invoke reusable job and pass secret to it
+  call-rwf-pass-secret:
+    name: Call Reusable Workflow and Pass Secret to it
     # pass secret to reusable workflow
     secrets:
       envPAT: ${{ secrets.token }}
-    uses: ./.github/workflows/re_03.yaml
+    uses: ./.github/workflows/re_03_secrets.yaml
+
+  # Use outputs from reusable job
+  call-rwf-which-returns-outpus:
+    name: Call Reusabe Workflow and Return Secrets
+    uses: ./.github/workflows/re_04_outputs.yaml
+      
+  call-rwf-and-use-its-outputs:
+    runs-on: ubuntu-latest
+    needs: call-rwf-which-returns-outpus
+    steps:
+      - run:  echo ${{ needs.call-rwf-which-returns-outpus.outputs.firstword }} ${{ needs.call-rwf-which-returns-outpus.outputs.firstword }}
