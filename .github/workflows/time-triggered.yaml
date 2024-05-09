@@ -2,8 +2,9 @@ name: Time triggered
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '*/5 * * * *'
+  # The one below works
+  # schedule:
+  #   - cron: '*/5 * * * *'
 
 jobs:
   my_scheduled_job:
