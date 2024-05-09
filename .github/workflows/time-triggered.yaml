@@ -1,0 +1,16 @@
+name: Time triggered
+
+on:
+  schedule:
+    # At 08:00 AM every day
+    - cron: '35 11 * * *'
+
+jobs:
+  my_scheduled_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Run a script
+        run: echo "Run every day at day at 14:30 AM UTC!"
