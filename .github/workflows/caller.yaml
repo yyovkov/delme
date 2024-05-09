@@ -17,12 +17,14 @@ jobs:
     uses: ./.github/workflows/re_01.yaml
 
   call-wf-pass-named-input:
+    name: Invokke reusable jobe and pass variable to it
     # pass named inputs
     with:
       var-to-pass: ./github/labeler.yaml
     uses: ./.github/workflows/re_02.yaml
 
   call-wf-pass-secret:
+    name: Invoke reusable job and pass secret to it
     # pass secret to reusable workflow
     secrets:
       envPAT: ${{ secrets.token }}
