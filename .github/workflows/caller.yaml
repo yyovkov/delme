@@ -1,0 +1,12 @@
+on:
+  workflow_dispatch:
+    
+jobs:
+  call-workflow:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Perform ECHO
+        run: |
+          echo "This is the end"
+          echo "My friend, the end"
