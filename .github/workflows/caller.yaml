@@ -14,4 +14,4 @@ jobs:
           echo "My friend, the end"
 
   call-wf-from-file:
-    uses: ./.github/workflows/reusables/re_one.yaml
+    uses: ./.github/workflows/re_one.yaml
