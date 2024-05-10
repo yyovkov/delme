@@ -2,8 +2,7 @@ name: Build Base Images (reusable)
 
 on:
   workflow_dispatch:
-  # schedule:
-  #   - cron: '*/5 * * * *'
+  workflow_call:
   # pull_request:
   # push:
   #   branches:
