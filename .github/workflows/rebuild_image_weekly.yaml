@@ -1,0 +1,11 @@
+name: Rebuild Base Docker Images Weekly
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '45 14 * * *'
+    
+jobs:
+  weekly:
+    name: Rebuild Base Images
+    uses: ./.github/workflows/re_build_image.yaml

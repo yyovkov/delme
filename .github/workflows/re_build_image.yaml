@@ -1,13 +1,13 @@
-name: Display Contexts
+name: Build Base Images (reusable)
 
 on:
   workflow_dispatch:
   # schedule:
   #   - cron: '*/5 * * * *'
-  pull_request:
-  push:
-    branches:
-      - 'master'
+  # pull_request:
+  # push:
+  #   branches:
+  #     - 'master'
 
 jobs:
   display_context:
