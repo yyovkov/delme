@@ -41,4 +41,5 @@ jobs:
       - id: three
         run: |
           echo Test this line too
+          echo Empty line commit
 
