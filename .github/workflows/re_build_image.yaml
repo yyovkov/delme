@@ -57,3 +57,12 @@ jobs:
           tags: |
             ${{ github.event.pull_request.head.sha == null && 'yyovkov/test:3.11.8' || null }}
             yyovkov/test:3.11.8-${{ github.event.pull_request.head.sha || github.sha }}
+          cache-from: |
+            type=gha,scope=images/python/3.11.8/${{ github.ref_name }}
+            type=registry,ref=europe-west1-docker.pkg.dev/triple-management/cache/python/3.11.8:newest
+            #
+            ${{ github.event.pull_request.head.sha == null
+              && type=registry,ref=europe-west1-docker.pkg.dev/triple-management/cache/python/3.11.8:latest
+              || type=gha,scope=images/python/3.11.8/${{ github.base_ref }}
+            }}
+
