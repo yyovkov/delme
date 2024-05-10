@@ -1,0 +1,11 @@
+name: Display Contexts
+
+on:
+  workflow_dispatch:
+
+jobs:
+  display_variables:
+    - name: Display Contexts
+      run: | 
+        echo GitHub SHA github.sha: {{ github.sha }}
+        echo GitHub Ref Name github.ref_name ${{ github.ref_name }}
