@@ -23,6 +23,8 @@ jobs:
           echo ""
           echo "GIT_COMMIT=${{ github.event.pull_request.head.sha || github.sha }}"
           echo "When merging to master the GIT_COMMIT should be equal to github.sha"
+          echo ""
+          echo "Adding whitespace commit for feat/my-feature-02 branch"
 
       - uses: actions/checkout@v4
         timeout-minutes: 1
