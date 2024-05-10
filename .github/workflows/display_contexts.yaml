@@ -16,17 +16,20 @@ jobs:
           echo GitHub Event Pull Reqeust Head github.event.pull_request.head.sha: ${{ github.event.pull_request.head.sha }}
           # only available when the event that triggers a workflow run is either pull_request or pull_request_target.
           echo GitHub Base Ref github.base_ref: ${{ github.base_ref }}
+          echo ""
+          echo GIT_COMMIT=${{ github.event.pull_request.head.sha || github.sha }}
 
   test-checkout:
     runs-on: ubuntu-latest
     steps:
-    - id: checkout
-      uses: actions/checkout@v4
-      timeout-minutes: 1
-      with:
-        ref: ${{ github.event.pull_request.head.sha }}
-    - id: list
-      run: |
-        pwd
-        git branch
-        ls -la 
+      - id: checkout
+        uses: actions/checkout@v4
+        timeout-minutes: 1
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - id: list
+        run: |
+          pwd
+          git branch
+          ls -la 
+
