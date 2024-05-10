@@ -3,10 +3,10 @@ name: Build Base Images (reusable)
 on:
   workflow_dispatch:
   workflow_call:
-  # pull_request:
-  # push:
-  #   branches:
-  #     - 'master'
+  pull_request:
+  push:
+    branches:
+      - 'master'
 
 jobs:
   display_context:
