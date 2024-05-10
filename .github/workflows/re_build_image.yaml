@@ -57,4 +57,3 @@ jobs:
           tags: |
             ${{ github.event.pull_request.head.sha == null && 'yyovkov/test:3.11.8' || null }}
             yyovkov/test:3.11.8-${{ github.event.pull_request.head.sha || github.sha }}
-# ${{ github.event.pull_request.head.sha && 'yyovkov/test:3.11.8' || '' }}
