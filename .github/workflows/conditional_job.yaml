@@ -22,7 +22,7 @@ jobs:
         run: echo Run FIRST job
 
   second-job:
-    if: ${{ github.event.inputs.job_name }} == 'second-job'
+    if: ${{ github.event.inputs.job_name }} == 'second_job'
     runs-on: ubuntu-latest
     steps:
       - name: First step of SECOND job
