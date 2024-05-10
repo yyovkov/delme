@@ -9,5 +9,7 @@ jobs:
     steps:
       - name: Display Contexts
         run: | 
-          echo GitHub SHA github.sha: {{ github.sha }}
+          echo GitHub SHA github.sha: ${{ github.sha }}
           echo GitHub Ref Name github.ref_name ${{ github.ref_name }}
+          echo GitHub Event Pull Reqeust Head pull_request.head.sha:${{ github.event.pull_request.head.sha }}
+          echo GitHub Base Ref github.base_ref: ${{ github.base_ref }}
