@@ -23,6 +23,15 @@ jobs:
           echo ""
           echo "GIT_COMMIT=${{ github.event.pull_request.head.sha || github.sha }}"
           echo "When merging to master the GIT_COMMIT should be equal to github.sha"
+
+      - uses: actions/checkout@v4
+        timeout-minutes: 1
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Set up Docker Buildx
+        timeout-minutes: 1
+        uses: docker/setup-buildx-action@v3
       
       - name: Set up Docker Buildx
         timeout-minutes: 1
@@ -46,22 +55,3 @@ jobs:
           tags: |
             ${{ github.event.pull_request.head.sha && '' || 'yyovkov/test:3.11.8' }}
             yyovkov/test:3.11.8-${{ github.event.pull_request.head.sha || github.sha }}
-
-  test-checkout:
-    runs-on: ubuntu-latest
-    steps:
-      - id: checkout
-        uses: actions/checkout@v4
-        timeout-minutes: 1
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-      - id: list
-        run: |
-          pwd
-          git branch
-          ls -la 
-      - id: three
-        run: |
-          echo Test this line too
-          echo Empty line commit
-
