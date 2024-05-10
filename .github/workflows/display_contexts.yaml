@@ -12,8 +12,8 @@ jobs:
       - name: Display Contexts
         run: | 
           echo GitHub SHA github.sha: ${{ github.sha }}
-          echo GitHub Ref Name github.ref_name ${{ github.ref_name }}
-          echo GitHub Event Pull Reqeust Head pull_request.head.sha:${{ github.event.pull_request.head.sha }}
+          echo GitHub Ref Name github.ref_name: ${{ github.ref_name }}
+          echo GitHub Event Pull Reqeust Head github.event.pull_request.head.sha: ${{ github.event.pull_request.head.sha }}
           # only available when the event that triggers a workflow run is either pull_request or pull_request_target.
           echo GitHub Base Ref github.base_ref: ${{ github.base_ref }}
 
@@ -28,4 +28,5 @@ jobs:
     - id: list
       run: |
         pwd
-        ls -l 
+        git branch
+        ls -la 
