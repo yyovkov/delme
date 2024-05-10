@@ -2,8 +2,9 @@ name: Display Contexts
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '*/5 * * * *'
+  # schedule:
+  #   - cron: '*/5 * * * *'
+  pull_request:
 
 jobs:
   display_context:
