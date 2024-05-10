@@ -44,7 +44,7 @@ jobs:
           provenance: false
           build-args: GIT_COMMIT=${{ github.event.pull_request.head.sha || github.sha }}
           tags: |
-            ${{ github.event.pull_request.head.sha && "" || gcr.io/triple-management/python:3.11.8 }}
+            ${{ github.event.pull_request.head.sha && '' || gcr.io/triple-management/python:3.11.8 }}
             gcr.io/triple-management/python:3.11.8-${{ github.event.pull_request.head.sha || github.sha }}
 
   test-checkout:
