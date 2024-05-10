@@ -62,5 +62,5 @@ jobs:
             type=registry,ref=europe-west1-docker.pkg.dev/triple-management/cache/python/3.11.8:newest
             type=${{ github.event.pull_request.head.sha == null
               && 'registry,ref=europe-west1-docker.pkg.dev/triple-management/cache/python/3.11.8:latest'
-              || "gha,scope=images/python/3.11.8/${{ github.base_ref }}"
+              || gha,scope=images/python/3.11.8/${{ github.base_ref }}
             }}
