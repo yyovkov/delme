@@ -55,5 +55,5 @@ jobs:
           provenance: false
           build-args: GIT_COMMIT=${{ github.event.pull_request.head.sha || github.sha }}
           tags: |
-            # ${{ github.event.pull_request.head.sha == '' && '' || 'yyovkov/test:3.11.8' }}
+            ${{ github.event.pull_request.head.sha && 'yyovkov/test:3.11.8' || '' }}
             yyovkov/test:3.11.8-${{ github.event.pull_request.head.sha || github.sha }}
