@@ -15,7 +15,7 @@ on:
 
 jobs:
   first-job:
-    if: ${{ github.event.inputs.job_name }} == 'first-job'
+    if: github.event.inputs.job_name == 'first-job'
     runs-on: ubuntu-latest
     steps:
       - name: First step of FIRST job
@@ -24,7 +24,7 @@ jobs:
           echo job_name choice is: ${{ github.event.inputs.job_name }}
 
   second-job:
-    if: ${{ github.event.inputs.job_name }} == 'second_job'
+    if: github.event.inputs.job_name == 'second_job'
     runs-on: ubuntu-latest
     steps:
       - name: First step of SECOND job
