@@ -5,7 +5,9 @@ on:
 
 jobs:
   display_variables:
-    - name: Display Contexts
-      run: | 
-        echo GitHub SHA github.sha: {{ github.sha }}
-        echo GitHub Ref Name github.ref_name ${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display Contexts
+        run: | 
+          echo GitHub SHA github.sha: {{ github.sha }}
+          echo GitHub Ref Name github.ref_name ${{ github.ref_name }}
