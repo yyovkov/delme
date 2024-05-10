@@ -15,14 +15,14 @@ on:
 
 jobs:
   first-job:
-    if: ${{ env.job_name }} == 'first-job'
+    if: ${{ github.event.inputs.job_name }} == 'first-job'
     runs-on: ubuntu-latest
     steps:
       - name: First step of FIRST job
         run: echo Run FIRST job
 
   second-job:
-    if: ${{ env.job_name }} == 'second-job'
+    if: ${{ github.event.inputs.job_name }} == 'second-job'
     runs-on: ubuntu-latest
     steps:
       - name: First step of SECOND job
