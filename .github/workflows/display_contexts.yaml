@@ -12,13 +12,15 @@ jobs:
     steps:
       - name: Display Contexts
         run: | 
-          echo GitHub SHA github.sha: ${{ github.sha }}
-          echo GitHub Ref Name github.ref_name: ${{ github.ref_name }}
-          echo GitHub Event Pull Reqeust Head github.event.pull_request.head.sha: ${{ github.event.pull_request.head.sha }}
+          echo "GitHub SHA github.sha: ${{ github.sha }}"
+          echo "GitHub Ref Name github.ref_name: ${{ github.ref_name }}"
+          echo "GitHub Event Pull Reqeust Head github.event.pull_request.head.sha: ${{ github.event.pull_request.head.sha }}"
           # only available when the event that triggers a workflow run is either pull_request or pull_request_target.
-          echo GitHub Base Ref github.base_ref: ${{ github.base_ref }}
+          echo "GitHub Base Ref (pr target branch) github.base_ref: ${{ github.base_ref }}"
+          echo "GitHub Head Ref (source branch) github.head_ref: ${{ github.head_ref }}"
           echo ""
-          echo GIT_COMMIT=${{ github.event.pull_request.head.sha || github.sha }}
+          echo "GIT_COMMIT=${{ github.event.pull_request.head.sha || github.sha }}"
+          echo "When merging to master the GIT_COMMIT should be equal to github.sha"
 
   test-checkout:
     runs-on: ubuntu-latest
@@ -33,4 +35,7 @@ jobs:
           pwd
           git branch
           ls -la 
+      - id: three
+        run: |
+          echo Test this line too
 
