@@ -45,7 +45,7 @@ jobs:
           username: ${{ vars.DEV_DOCKERHUB_USER }}
           password: ${{ secrets.DEV_DOCKERHUB_PAT }}
 
-      - name: Push prod image
+      - name: Build and push docker image
         timeout-minutes: 15
         uses: docker/build-push-action@v5
         with:
@@ -55,5 +55,6 @@ jobs:
           provenance: false
           build-args: GIT_COMMIT=${{ github.event.pull_request.head.sha || github.sha }}
           tags: |
-            ${{ github.event.pull_request.head.sha && '' || 'yyovkov/test:3.11.8' }}
+            ${{ github.event.pull_request.head.sha == null && 'yyovkov/test:3.11.8' || null }}
             yyovkov/test:3.11.8-${{ github.event.pull_request.head.sha || github.sha }}
+# ${{ github.event.pull_request.head.sha && 'yyovkov/test:3.11.8' || '' }}
