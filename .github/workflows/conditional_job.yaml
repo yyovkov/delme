@@ -1,0 +1,29 @@
+# Run specific jobs on certain conditions
+name: Conditional Job Run
+
+on:
+  workflow_dispatch:
+    inputs:
+      job_name:
+        description: Name of the job to be executed
+        required: true
+        type: choice
+        options:
+          - first-job
+          - second-job
+
+
+jobs:
+  first-job:
+    if: ${{ env.job_name }} == 'first-job'
+    runs-on: ubuntu-latest
+    steps:
+      - name: First step of FIRST job
+        run: echo Run FIRST job
+
+  second-job:
+    if: ${{ env.job_name }} == 'second-job'
+    runs-on: ubuntu-latest
+    steps:
+      - name: First step of SECOND job
+        run: echo Run SECOND job
