@@ -35,7 +35,7 @@ jobs:
         id: global
         shell: bash
         run: |
-          echo "::set-output name=cache-from-type::gha,scope=images/python/3.11.8/${{ github.base_ref }}"
+          echo "gha,scope=images/python/3.11.8/${{ github.base_ref }}" >> $GITHUB_OUTPUT
 
       - name: Set up Docker Buildx
         timeout-minutes: 1
@@ -66,10 +66,11 @@ jobs:
           cache-from: |
             type=gha,scope=images/python/3.11.8/${{ github.ref_name }}
             type=registry,ref=europe-west1-docker.pkg.dev/triple-management/cache/python/3.11.8:newest
-            type=${{ github.event.pull_request.head.sha == ''
-              && 'registry,ref=europe-west1-docker.pkg.dev/myproject/cache/python/3.11.8:latest'
-              || 'gha,scope=images/python/3.11.8/${{ github.base_ref }}'
-            }}
+            # type=${{ github.event.pull_request.head.sha == ''
+            #   && 'registry,ref=europe-west1-docker.pkg.dev/myproject/cache/python/3.11.8:latest'
+            #   || 'gha,scope=images/python/3.11.8/${{ github.base_ref }}'
+            # }}
+            type=''
           cache-to: |
             type=${{ github.event.pull_request.head.sha == null
               && 'type=registry,ref=europe-west1-docker.pkg.dev/triple-management/cache/python/3.11.8:latest,mode=max'
