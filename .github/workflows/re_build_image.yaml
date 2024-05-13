@@ -33,8 +33,9 @@ jobs:
 
       - name: Set Action Global Outputs
         id: global
+        shell: bash
         run: |
-          echo "::set-output name=cache-from-type::gha,scope=images/python/3.11.8/${{ github.base_ref }}
+          echo "::set-output name=cache-from-type::gha,scope=images/python/3.11.8/${{ github.base_ref }}"
 
       - name: Set up Docker Buildx
         timeout-minutes: 1
