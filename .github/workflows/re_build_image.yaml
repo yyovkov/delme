@@ -67,7 +67,7 @@ jobs:
           cache-to: |
             type=${{ github.event.pull_request.head.sha == null
               && 'type=registry,ref=europe-west1-docker.pkg.dev/triple-management/cache/python/3.11.8:latest,mode=max'
-              || none 
+              || null
             }}
             type=registry,ref=europe-west1-docker.pkg.dev/triple-management/cache/python/3.11.8:newest,mode=max
             type=inline
