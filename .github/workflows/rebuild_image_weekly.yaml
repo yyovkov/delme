@@ -1,9 +1,9 @@
 name: Rebuild Base Docker Images Weekly
 
 on:
-  schedule:
-    - cron: '30 15 * * *'
   workflow_dispatch:
+  # schedule:
+  #   - cron: '30 15 * * *'
     
 jobs:
   weekly:
