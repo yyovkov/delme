@@ -1,0 +1,22 @@
+name: JOB Non-Master (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      DBT_COMMAND:
+        description: "Command to run"
+        required: true
+
+jobs:
+  run-dbt-command:
+    name: "Run DBT command"
+    runs-on: ubuntu-latest
+    container:
+      image: nginx
+    steps:
+      - name: 'Run Command'
+        shell: bash
+        run: |
+          pwd
+          ls -l 
+          eval ${{ github.event.inputs.DBT_COMMAND }}
