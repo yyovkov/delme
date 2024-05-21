@@ -15,6 +15,7 @@ jobs:
         shell: bash
         run: |
           echo "This is the file content" > my_artifact.txt
+          echo "The command is: ${{ github.event.inputs.DBT_COMMAND }}
 
   use-artifact-in-docker:
     runs-on: ubuntu-latest
@@ -25,27 +26,3 @@ jobs:
         run: |
           ls -l /.dockerenv
           hostname
-
-
-
-
-  ###
-
-
-    name: "Run DBT command"
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Run Command'
-        shell: bash
-        run: |
-          pwd
-          ls -l 
-          eval ${{ github.event.inputs.DBT_COMMAND }}
-
-  
-      - name: 'Run in docker'
-        uses: docker://ubuntu
-        with:
-          entrypoint: bash
-          args: "-c ${{ github.event.inputs.DBT_COMMAND }}"
-
