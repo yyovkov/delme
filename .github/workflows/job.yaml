@@ -13,8 +13,7 @@ on:
         default: latest
 
 jobs:
-  use-artifact-in-docker:
-    needs: [generate-artifact]
+  execute:
     runs-on: ubuntu-latest
     container:
       image: ubuntu
