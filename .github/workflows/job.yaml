@@ -6,11 +6,14 @@ on:
       DBT_COMMAND:
         description: "Command to run"
         required: true
+        type: string
 
 jobs:
   generate-artifact:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+        timeout-minutes: 1
       - name: Generate artifact
         shell: bash
         run: |
