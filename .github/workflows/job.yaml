@@ -14,8 +14,7 @@ jobs:
       - name: Generate artifact
         shell: bash
         run: |
-          echo "This is the file content" > my_artifact.txt
-          echo "The command is: ${{ github.event.inputs.DBT_COMMAND }}
+          echo "The command is: ${{ github.event.inputs.DBT_COMMAND }}" > my_artifact.txt
 
   use-artifact-in-docker:
     runs-on: ubuntu-latest
