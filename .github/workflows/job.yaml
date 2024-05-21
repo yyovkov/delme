@@ -23,5 +23,6 @@ jobs:
         timeout-minutes: 1
       - name: "Running in a container"
         run: |
+          uname
           echo DOCKER_IMAGE_TAG is: ${{ github.event.inputs.DOCKER_IMAGE_TAG }}
           eval ${{ github.event.inputs.DBT_COMMAND }}
