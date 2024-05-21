@@ -7,18 +7,12 @@ on:
         description: "Command to run"
         required: true
         type: string
+      DOCKER_IMAGE_TAG:
+        description: "dwh-analytics docker image tag"
+        required: false
+        default: latest
 
 jobs:
-  generate-artifact:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        timeout-minutes: 1
-      - name: Generate artifact
-        shell: bash
-        run: |
-          echo "The command is: ${{ github.event.inputs.DBT_COMMAND }}" > my_artifact.txt
-
   use-artifact-in-docker:
     needs: [generate-artifact]
     runs-on: ubuntu-latest
@@ -29,8 +23,5 @@ jobs:
         timeout-minutes: 1
       - name: "Running in a container"
         run: |
-          ls -l /.dockerenv
-          hostname
-          ls -l
-          echo "Run DBT_COMMAND below:"
+          echo DOCKER_IMAGE_TAG is: ${{ github.event.inputs.DOCKER_IMAGE_TAG }}
           eval ${{ github.event.inputs.DBT_COMMAND }}
