@@ -11,8 +11,6 @@ jobs:
   run-dbt-command:
     name: "Run DBT command"
     runs-on: ubuntu-latest
-    container:
-      image: nginx
     steps:
       - name: 'Run Command'
         shell: bash
@@ -20,3 +18,9 @@ jobs:
           pwd
           ls -l 
           eval ${{ github.event.inputs.DBT_COMMAND }}
+
+      - name: 'Run in docker'
+        uses: docker://ubuntu
+        with:
+          args: ${{ DBT_COMMAND }}
+
