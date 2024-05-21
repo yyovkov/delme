@@ -22,5 +22,5 @@ jobs:
       - name: 'Run in docker'
         uses: docker://ubuntu
         with:
-          cmd: eval ${{ github.event.inputs.DBT_COMMAND }}
+          run: eval ${{ github.event.inputs.DBT_COMMAND }}
 
