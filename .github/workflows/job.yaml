@@ -8,7 +8,30 @@ on:
         required: true
 
 jobs:
-  run-dbt-command:
+  generate-artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate artifact
+        shell: bash
+        run: |
+          echo "This is the file content" > my_artifact.txt
+
+  use-artifact-in-docker:
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu
+    steps:
+      - name: "Running in a container"
+        run: |
+          ls -l /.dockerenv
+          hostname
+
+
+
+
+  ###
+
+
     name: "Run DBT command"
     runs-on: ubuntu-latest
     steps:
@@ -19,6 +42,7 @@ jobs:
           ls -l 
           eval ${{ github.event.inputs.DBT_COMMAND }}
 
+  
       - name: 'Run in docker'
         uses: docker://ubuntu
         with:
