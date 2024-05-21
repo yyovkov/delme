@@ -26,4 +26,4 @@ jobs:
         run: |
           ls -l /.dockerenv
           hostname
-          eval ${{ github.event.inputs.DBT_COMMAND }}"
+          eval ${{ github.event.inputs.DBT_COMMAND }}
