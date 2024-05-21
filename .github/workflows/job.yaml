@@ -25,6 +25,8 @@ jobs:
     container:
       image: ubuntu
     steps:
+      - uses: actions/checkout@v4
+        timeout-minutes: 1
       - name: "Running in a container"
         run: |
           ls -l /.dockerenv
