@@ -6,6 +6,7 @@ on:
       DBT_COMMAND:
         description: "Command to run"
         required: true
+        default: mkdir "this directory"; ls -l
 
 jobs:
   run-dbt-command:
