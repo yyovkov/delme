@@ -19,5 +19,5 @@ jobs:
         shell: bash
         run: |
           echo The command is: ${{ github.event.inputs.DBT_COMMAND }}
-          eval "${{ github.event.inputs.DBT_COMMAND }}"
+          eval '${{ github.event.inputs.DBT_COMMAND }}'
           echo The command is: '${{ github.event.inputs.DBT_COMMAND }}'
