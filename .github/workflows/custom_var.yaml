@@ -13,7 +13,7 @@ jobs:
 
       - name: Set second variable derived from first
         run: |
-          VAR2=$(echo ${MY_ENV_VAR})
+          echo VAR2=$(echo ${MY_ENV_VAR}) >> $GITHUB_ENV
 
       - name: Use environment variable
         run: |
