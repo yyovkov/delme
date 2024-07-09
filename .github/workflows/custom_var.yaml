@@ -19,3 +19,7 @@ jobs:
         run: |-
           echo "The value of MY_ENV_VAR is $(echo ${MY_ENV_VAR})"
           echo "The value of VAR2 is $(echo ${VAR2})"
+
+      - name: Always exit with error
+        run: |-
+          exit 1
