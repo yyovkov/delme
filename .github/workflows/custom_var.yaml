@@ -1,6 +1,7 @@
 name: Custom VAR yaml
 
-on: push
+on:
+  workflow_dispatch:
 
 jobs:
   set_and_use_env_vars:
