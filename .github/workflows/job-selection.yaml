@@ -9,6 +9,7 @@ on:
         default: none
         type: choice
         options:
+          - none
           - job-one
           - job-two
 
