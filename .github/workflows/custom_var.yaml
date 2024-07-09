@@ -9,7 +9,7 @@ jobs:
       - name: Set environment variable
         run: |
           echo myValue > _MY_ENV_VAR
-          echo "MY_ENV_VAR=$(cat _MY_ENV_VAR) >> $GITHUB_ENV
+          echo "MY_ENV_VAR=$(cat _MY_ENV_VAR)" >> $GITHUB_ENV
 
       - name: Use environment variable
         run: |
