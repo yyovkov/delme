@@ -3,11 +3,14 @@ name: Concurency 01
 on:
   workflow_dispatch:
 
+concurrency:
+  group: deploy-application
+
 jobs:
   display_context:
     runs-on: self-hosted
     steps:
           - name: Display Contexts
             run: | 
-              sleep 120
+              sleep 60
               echo I finished at $(date +%s)

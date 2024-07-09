@@ -5,7 +5,7 @@ on:
 
 jobs:
   display_context:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
           - name: Display Contexts
             run: | 
