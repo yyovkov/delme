@@ -14,7 +14,7 @@ on:
 
 jobs:
   job-one:
-    if: inputs.environment == 'job-one'
+    if: inputs.job_name == 'job-one'
     runs-on: self-hosted
     steps:
       - name: Print the output
@@ -22,7 +22,7 @@ jobs:
           echo "Job ONE"
 
   job-two:
-    if: inputs.environment == 'job-two'
+    if: inputs.job_name == 'job-two'
     runs-on: self-hosted
     steps:
       - name: Print the output
