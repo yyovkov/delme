@@ -12,5 +12,5 @@ jobs:
     steps:
           - name: Display Contexts
             run: | 
-              sleep 60
+              sleep 180
               echo I finished at $(date +%s)
