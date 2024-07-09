@@ -5,6 +5,7 @@ on:
 
 concurrency:
   group: deploy-application
+  cancel-in-progress: false
 
 jobs:
   display_context:
