@@ -11,6 +11,11 @@ jobs:
           echo myValue > _MY_ENV_VAR
           echo "MY_ENV_VAR=$(cat _MY_ENV_VAR)" >> $GITHUB_ENV
 
+      - name: Set second variable derived from first
+        run: |
+          VAR2=$(echo ${MY_ENV_VAR})
+
       - name: Use environment variable
         run: |
-          echo "The value of MY_ENV_VAR is $(echo $MY_ENV_VAR)"
+          echo "The value of MY_ENV_VAR is $(echo ${MY_ENV_VAR})"
+          echo "The value of VAR2 is $(echo ${VAR2})"
