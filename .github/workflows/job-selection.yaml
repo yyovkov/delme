@@ -6,13 +6,15 @@ on:
       job_name:
         description: Name of the job
         required: true
+        default: none
         type: choice
         options:
-          - one
-          - two
+          - job-one
+          - job-two
 
 jobs:
   job-one:
+    if: inputs.environment == 'job-one'
     runs-on: self-hosted
     steps:
       - name: Print the output
@@ -20,6 +22,7 @@ jobs:
           echo "Job ONE"
 
   job-two:
+    if: inputs.environment == 'job-two'
     runs-on: self-hosted
     steps:
       - name: Print the output
