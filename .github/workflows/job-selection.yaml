@@ -25,12 +25,12 @@ jobs:
       - name: Conditional step ONE
         if: inputs.job_name == 'non-existing-text'
         run: |
-          echo "Conditional step ONE succeed
+          echo "Conditional step ONE succeed"
 
       - name: Conditional step TWO
         if: inputs.job_name == 'job-one'
         run: |
-          echo "Conditional step TWO succeed
+          echo "Conditional step TWO succeed"
 
   job-two:
     if: inputs.job_name == 'job-two'
