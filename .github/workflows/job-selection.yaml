@@ -1,0 +1,27 @@
+name: JOB Selection
+
+on:
+  workflow_dispatch:
+    inputs:
+      job_name:
+        description: Name of the job
+        required: true
+        type: choice
+        options:
+          - one
+          - two
+
+jobs:
+  job-one:
+    runs-on: self-hosted
+    steps:
+      - name: Print the output
+        run: |
+          echo "Job ONE"
+
+  job-two:
+    runs-on: self-hosted
+    steps:
+      - name: Print the output
+        run: |
+          echo "Job TWO"
