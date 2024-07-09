@@ -24,7 +24,5 @@ jobs:
         run: |-
           echo MY_ENV_VAR: ${{ env.MY_ENV_VAR }}
           echo VAR2: ${{ env.VAR2 }}
+          test -n ${{ env.VAR2 }} || echo "The VAR2 is not setup"
 
-      - name: Always exit with error
-        run: |-
-          exit 1
