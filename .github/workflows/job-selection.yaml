@@ -6,10 +6,10 @@ on:
       job_name:
         description: Name of the job
         required: true
-        default: none
+        default: 'select job to run'
         type: choice
         options:
-          - none
+          - select job to run
           - job-one
           - job-two
 
