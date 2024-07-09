@@ -3,6 +3,9 @@ name: Concurency 02
 on:
   workflow_dispatch:
 
+concurrency:
+  group: deploy-application
+
 jobs:
   display_context:
     runs-on: ubuntu-latest
