@@ -22,7 +22,6 @@ jobs:
 
       - name: List variables and values
         run: |-
-          echo MY_ENV_VAR: ${{ env.MY_ENV_VAR }}
-          echo VAR2: ${{ env.VAR2 }}
-          test -n ${{ env.VAR2 }} || echo "The VAR2 is not setup"
+          test -n ${{ env.VAR2 }} && echo VAR2: ${{ env.VAR2 }} || (echo "The VAR2 is not setup"; exit 1)
+          test -n ${{ env.MY_ENV_VAR }} && echo VAR2: ${{ env.MY_ENV_VAR }} || (echo "The MY_ENV_VAR is not setup"; exit 1)
 
