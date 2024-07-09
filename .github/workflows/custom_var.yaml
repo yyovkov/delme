@@ -1,0 +1,16 @@
+name: Custom VAR yaml
+
+on: push
+
+jobs:
+  set_and_use_env_vars:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set environment variable
+        run: |
+          echo myValue > _MY_ENV_VAR
+          echo "MY_ENV_VAR=$(cat _MY_ENV_VAR) >> $GITHUB_ENV
+
+      - name: Use environment variable
+        run: |
+          echo "The value of MY_ENV_VAR is $MY_ENV_VAR"
