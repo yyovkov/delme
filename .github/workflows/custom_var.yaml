@@ -20,6 +20,11 @@ jobs:
           echo "The value of MY_ENV_VAR is $(echo ${MY_ENV_VAR})"
           echo "The value of VAR2 is $(echo ${VAR2})"
 
+      - name: List variables and values
+        run: |-
+          echo MY_ENV_VAR: ${{ env.MY_ENV_VAR }}
+          echo VAR2: ${{ env.VAR2 }}
+
       - name: Always exit with error
         run: |-
           exit 1
