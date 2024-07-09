@@ -7,16 +7,20 @@ on:
         description: "Command to run"
         required: true
         default: mkdir "this directory"; ls -l
+      DOCKER_IMAGE_TAG:
+        description: "dwh-analytics docker image tag"
+        required: false
+        default: latest
 
 jobs:
-  run-dbt-command:
-    name: "Run DBT command"
+  execute:
     runs-on: ubuntu-latest
     container:
-      image: nginx
+      image: ubuntu
     steps:
-      - name: 'Run Command'
-        shell: bash
+      - uses: actions/checkout@v4
+        timeout-minutes: 1
+      - name: "Running in a container"
         run: |
           echo The command is: ${{ github.event.inputs.DBT_COMMAND }}
           eval '${{ github.event.inputs.DBT_COMMAND }}'
