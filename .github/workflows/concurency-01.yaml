@@ -1,0 +1,13 @@
+name: Concurency 01
+
+on:
+  workflow_dispatch:
+
+jobs:
+  display_context:
+    runs-on: self-hosted
+    steps:
+          - name: Display Contexts
+            run: | 
+              sleep 120
+              echo I finished at $(date +%s)
