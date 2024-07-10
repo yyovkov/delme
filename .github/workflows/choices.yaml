@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: Setup variables
         run: |
-          case ${{ inputs.service}} in
+          case ${{ inputs.service }} in
             api)
               echo "PROJECT_ID=CLOUD_RUN_PROJECT_ID_API" >> $GITHUB_ENV
               echo "SERVICE_FLAGS=" >> $GITHUB_ENV
@@ -53,4 +53,6 @@ jobs:
 
       - name: Display Contexts
         run: | 
-          echo I finished at $(date +%s)
+          echo PROJECT_ID is: ${{ env.PROJECT_ID}}
+          echo SERVICE_FLAG are: ${{ env.PROJECT_ID }}
+          echo SERVICE is: ${{ inputs.service }}
