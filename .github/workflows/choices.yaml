@@ -55,7 +55,7 @@ jobs:
 
           if [[ ${{ inputs.environment }} == 'javier' ]]
           then
-            PROJECT_ID=CLOUD_RUN_PROJECT_ID_API
+            echo "PROJECT_ID=CLOUD_RUN_PROJECT_ID_API" >> $GITHUB_ENV
           fi
 
       - name: Display Contexts
