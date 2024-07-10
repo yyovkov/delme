@@ -61,5 +61,5 @@ jobs:
       - name: Display Contexts
         run: | 
           echo PROJECT_ID is: ${{ env.PROJECT_ID}}
-          echo SERVICE_FLAG are: ${{ env.PROJECT_ID }}
+          echo SERVICE_FLAG are: ${{ env.SERVICE_FLAG }}
           echo SERVICE is: ${{ inputs.service }}
