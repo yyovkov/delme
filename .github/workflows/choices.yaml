@@ -60,7 +60,7 @@ jobs:
 
       - name: Inline step variables
         run: |
-          echo "MY_VAR=myVarValue"
+          echo "MY_VAR=myVarValue" >> $GITHUB_ENV
           echo MY_VAR is: $MY_VAR
 
       - name: Display Contexts
