@@ -52,6 +52,11 @@ jobs:
               ;;
           esac
 
+          if [[ ${{ inputs.environment }} == 'javier' ]]
+          then
+            PROJECT_ID=CLOUD_RUN_PROJECT_ID_API
+          fi
+
       - name: Display Contexts
         run: | 
           echo PROJECT_ID is: ${{ env.PROJECT_ID}}
