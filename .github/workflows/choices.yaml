@@ -58,6 +58,11 @@ jobs:
             echo "PROJECT_ID=CLOUD_RUN_PROJECT_ID_API" >> $GITHUB_ENV
           fi
 
+      - name: Inline step variables
+        run: |
+          echo "MY_VAR=myVarValue"
+          echo MY_VAR is: $MY_VAR
+
       - name: Display Contexts
         run: |
           echo "Display context"
