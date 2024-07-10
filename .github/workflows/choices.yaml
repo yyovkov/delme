@@ -1,0 +1,53 @@
+name: Concurency 02
+
+on:
+  workflow_dispatch:
+    inputs:
+      service:
+        description: 'Service to be restarted'
+        required: true
+        default: 'select service'
+        type: choice
+        options:
+          - api
+          - theresa-admin
+          - theresa-api
+          - theresa-worker
+      environment:
+        description: 'Environment where this action will be run'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+
+jobs:
+  display_context:
+    runs-on: self-hosted
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Setup variables
+        run: |
+          cat ${{ inputs.service}} in
+            api)
+              echo "PROJECT_ID=CLOUD_RUN_PROJECT_ID_API" >> $GITHUB_ENV
+              echo "SERVICE_FLAGS=" >> $GITHUB_ENV
+              ;;
+            theresa-admin)
+              echo "PROJECT_ID=CLOUD_RUN_PROJECT_ID_TES" >> $GITHUB_ENV
+              echo "SERVICE_FLAGS=--command=/start_admin" >> $GITHUB_ENV
+              ;;
+            theresa-api)
+              echo "PROJECT_ID=CLOUD_RUN_PROJECT_ID_TES" >> $GITHUB_ENV
+              echo "SERVICE_FLAGS=--command=/start_grpc" >> $GITHUB_ENV
+              ;;
+            theresa-worker)
+              echo "PROJECT_ID=CLOUD_RUN_PROJECT_ID_TES" >> $GITHUB_ENV
+              echo "SERVICE_FLAGS=--command=/start_admin" >> $GITHUB_ENV
+              ;;
+            *)
+              echo -n "Unknow appliaction
+
+      - name: Display Contexts
+        run: | 
+          echo I finished at $(date +%s)
