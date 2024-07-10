@@ -1,4 +1,4 @@
-name: Concurency 02
+name: Conditional Variables
 
 on:
   workflow_dispatch:
