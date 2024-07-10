@@ -9,6 +9,7 @@ on:
         default: 'select service'
         type: choice
         options:
+          - select service
           - api
           - theresa-admin
           - theresa-api
