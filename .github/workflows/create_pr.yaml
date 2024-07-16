@@ -10,9 +10,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Create new file
+      - name: Update timestamp
         run: |
           echo "Timestamp: $(date +%s)" > timestamp.txt
+          git status
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
