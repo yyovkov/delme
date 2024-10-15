@@ -13,4 +13,4 @@ jobs:
         env:
           TEST_ENV_VALUE: test
         run: |
-          echo "Welcome
+          echo "Welcome"
