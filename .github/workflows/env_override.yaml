@@ -1,0 +1,16 @@
+name: ENV OVERRIDE
+
+on:
+  workflow_dispatch:
+
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu
+    steps:
+      - name: "Running in a container"
+        env:
+          TEST_ENV_VALUE: test
+        run: |
+          echo "Welcome
