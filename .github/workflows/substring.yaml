@@ -1,0 +1,15 @@
+name: Substring Example
+
+on:
+  workflow_dispatch:
+
+env:
+   IMAGE_COMMIT_API: repo=europe-west1-docker.pkg.dev/triple-management/triple/api
+
+jobs:
+  test-substring:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract substring
+        run: |
+          echo "REPO: ${{ env.IMAGE_COMMIT_API }}"
