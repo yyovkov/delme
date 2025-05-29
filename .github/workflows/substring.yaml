@@ -15,5 +15,9 @@ jobs:
           _full_repo=${{ env.IMAGE_COMMIT_API }}
           _repo=${_full_repo%/*}
           _image=${_full_repo##*/}
+          echo "DOCKER_REPO=${_full_repo%/*}" >> $GITHUB_ENV
+          echo "DOCKER_IMAGE=${_full_repo##/*}" >> $GITHUB_ENV
           echo "REPO: ${_repo}"
           echo "IMAGE: ${_image}"
+          echo "REPO (from env): ${{ env.DOCKER_REPO }}
+          echo "IMAGE (from env): ${{ env.DOCKER_IMAGE }}
