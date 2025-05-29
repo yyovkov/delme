@@ -12,5 +12,8 @@ jobs:
     steps:
       - name: Extract substring
         run: |
-          _repo=${{ env.IMAGE_COMMIT_API }}
-          echo "REPO (full): ${_repo}"
+          _full_repo=${{ env.IMAGE_COMMIT_API }}
+          _repo=${_full_repo%/*}
+          _image=${_full_repo##*/}
+          echo "REPO: ${_repo}"
+          echo "IMAGE: ${_image}"
