@@ -19,5 +19,7 @@ jobs:
           echo "DOCKER_IMAGE=${_full_repo##/*}" >> $GITHUB_ENV
           echo "REPO: ${_repo}"
           echo "IMAGE: ${_image}"
+      - name: Display variables
+        run: |
           echo "REPO (from env): ${{ env.DOCKER_REPO }}"
           echo "IMAGE (from env): ${{ env.DOCKER_IMAGE }}"
