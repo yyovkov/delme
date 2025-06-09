@@ -5,7 +5,7 @@ on:
 
 jobs:
   print-hello-from-job-last:
-    needs: ["*"]
+    needs: ["print-hello-from-job-one", "print-hello-from-job-two"]
     runs-on: ubuntu-latest
     steps:
       - name: Say hello from job last
