@@ -1,0 +1,26 @@
+name: Job depend on another job
+
+on:
+  workflow_dispatch:
+
+jobs:
+  print-hello-from-job-last:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say hello from job last
+        run: |
+          echo "Hello from job last"
+
+  print-hello-from-job-one:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say hello from job one
+        run: |
+          echo "Hello from job one"
+
+  print-hello-from-job-two:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say hello from job two 
+        run: |
+          echo "Hello from job two"
