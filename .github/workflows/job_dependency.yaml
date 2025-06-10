@@ -5,7 +5,7 @@ on:
 
 jobs:
   print-hello-from-job-last:
-    needs: ["print-hello-from-job-one", "print-hello-from-job-two"]
+    needs: ["print-hello-from-job-one", "print-hello-from-job-two", "print-hello-from-job-three"]
     runs-on: ubuntu-latest
     steps:
       - name: Say hello from job last
@@ -25,3 +25,11 @@ jobs:
       - name: Say hello from job two 
         run: |
           echo "Hello from job two"
+
+  print-hello-from-job-three:
+    if: false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say hello from job three
+        run: |
+          echo "Hello from job three"
