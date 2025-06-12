@@ -1,9 +1,16 @@
 name: Reusable Workflow with Input
 
 on:
+  workflow_dispatch:
+    inputs:
+      var-to-pass:
+        description: "Variable passed to the workflow"
+        required: true
+        type: string
   workflow_call:
     inputs:
       var-to-pass:
+        description: "Variable passed to the workflow"
         required: true
         type: string
 
