@@ -11,6 +11,9 @@ on:
         description: "dwh-analytics docker image tag"
         required: false
         default: latest
+  push:
+    branches:
+      - 'master'
 
 jobs:
   execute:
@@ -25,3 +28,7 @@ jobs:
           hostname
           echo DOCKER_IMAGE_TAG is: ${{ github.event.inputs.DOCKER_IMAGE_TAG }}
           eval ${{ github.event.inputs.DBT_COMMAND }}
+
+      - name: "Display variables"
+        run: |
+          echo GITHUB.WORKFLOW-GITHUB.REF: ${{ github.workflow }}-${{ github.ref }}
