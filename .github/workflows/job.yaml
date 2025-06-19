@@ -31,4 +31,4 @@ jobs:
 
       - name: "Display variables"
         run: |
-          echo GITHUB.WORKFLOW-GITHUB.REF: ${{ github.workflow }}-${{ github.ref }}
+          echo "GITHUB.WORKFLOW-GITHUB.REF: ${{ github.workflow }}-${{ github.ref }}"
