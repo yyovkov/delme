@@ -7,9 +7,6 @@ on:
     branches: [ master ]
     types:
       - completed
-  push:
-    branches:
-      - 'master'
 
 jobs:
   run-jobs:
@@ -19,3 +16,4 @@ jobs:
         run: |
           echo "Run step from WORKFLOW RUN TEST (follower)"
           echo "SHA: ${{ github.event.pull_request.head.sha }}"
+          env
