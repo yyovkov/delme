@@ -13,4 +13,4 @@ jobs:
       - name: Running step
         run: |
           echo "Welcome to the machine"
-          echo "SHA: ${{ github.event.pull_request.head.sha }}"
+          echo "SHA: ${{ github.event }}"
