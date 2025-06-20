@@ -7,6 +7,9 @@ on:
     branches: [ master ]
     types:
       - completed
+  push:
+    branches:
+      - 'master'
 
 jobs:
   run-jobs:
@@ -14,4 +17,4 @@ jobs:
     steps:
       - name: Run step
         run: |
-          echo "Run step from WORKFLOW RUN TEST (follower)
+          echo "Run step from WORKFLOW RUN TEST (follower)"

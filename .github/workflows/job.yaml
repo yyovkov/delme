@@ -11,9 +11,9 @@ on:
         description: "dwh-analytics docker image tag"
         required: false
         default: latest
-  push:
-    branches:
-      - 'master'
+  # push:
+  #   branches:
+  #     - 'master'
 
 jobs:
   execute:
