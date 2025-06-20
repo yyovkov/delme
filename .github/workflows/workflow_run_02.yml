@@ -18,4 +18,5 @@ jobs:
           echo "SHA: ${{ github.event.pull_request.head.sha }}"
           echo "does not work: GITHUB_SHA ${{ env.GITHUB_SHA }}"
           echo "GITHUB_SHA ${{ github.sha }}"
+          echo "Finish"
           env
