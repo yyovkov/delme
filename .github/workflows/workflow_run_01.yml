@@ -1,0 +1,12 @@
+name: WORKFLOW RUN TEST (initiator)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-tasks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Running step
+        run: |
+          echo "Welcome to the machine"
