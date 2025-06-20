@@ -16,4 +16,5 @@ jobs:
         run: |
           echo "Run step from WORKFLOW RUN TEST (follower)"
           echo "SHA: ${{ github.event.pull_request.head.sha }}"
+          echo "GITHUB_SHA ${{ env.GITHUB_SHA }}"
           env
