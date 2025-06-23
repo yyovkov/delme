@@ -1,0 +1,72 @@
+name: Conditional Variables
+
+on:
+  workflow_dispatch:
+    inputs:
+      service:
+        description: 'Service to be restarted'
+        required: true
+        default: 'select service'
+        type: choice
+        options:
+          - select service
+          - api
+          - theresa-admin
+          - theresa-api
+          - theresa-worker
+      environment:
+        description: 'Environment where this action will be run'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - javier
+
+jobs:
+  display_context:
+    runs-on: self-hosted
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Setup variables
+        run: |
+          case ${{ inputs.service }} in
+            api)
+              echo "PROJECT_ID=CLOUD_RUN_PROJECT_ID_API" >> $GITHUB_ENV
+              echo "SERVICE_FLAGS=" >> $GITHUB_ENV
+              ;;
+            theresa-admin)
+              echo "PROJECT_ID=CLOUD_RUN_PROJECT_ID_TES" >> $GITHUB_ENV
+              echo "SERVICE_FLAGS=--command=/start_admin" >> $GITHUB_ENV
+              ;;
+            theresa-api)
+              echo "PROJECT_ID=CLOUD_RUN_PROJECT_ID_TES" >> $GITHUB_ENV
+              echo "SERVICE_FLAGS=--command=/start_grpc" >> $GITHUB_ENV
+              ;;
+            theresa-worker)
+              echo "PROJECT_ID=CLOUD_RUN_PROJECT_ID_TES" >> $GITHUB_ENV
+              echo "SERVICE_FLAGS=--command=/start_admin" >> $GITHUB_ENV
+              ;;
+            *)
+              echo -n "Unknow appliaction"
+              exit 1
+              ;;
+          esac
+
+          if [[ ${{ inputs.environment }} == 'javier' ]]
+          then
+            echo "PROJECT_ID=CLOUD_RUN_PROJECT_ID_API" >> $GITHUB_ENV
+          fi
+
+      - name: Inline step variables
+        run: |
+          echo "myVarValue" > _my_var
+          export MY_VAR=$(cat _my_var)
+          echo MY_VAR is: $MY_VAR
+
+      - name: Display Contexts
+        run: |
+          echo "Display context"
+          echo PROJECT_ID is: ${{ env.PROJECT_ID}}
+          echo SERVICE_FLAGS are: ${{ env.SERVICE_FLAGS }}
+          echo SERVICE is: ${{ inputs.service }}

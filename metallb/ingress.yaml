@@ -1,0 +1,19 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+  namespace: testmlb
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: test.k8s.yyovkov.net
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: clusterip-service
+            port:
+              number: 9000

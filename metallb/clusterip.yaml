@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: clusterip-service
+ namespace: testmlb
+spec:
+ type: ClusterIP
+ ports:
+    - port: 9000
+      targetPort: 8000
+      protocol: TCP
+ selector:
+    app: simple-http-server

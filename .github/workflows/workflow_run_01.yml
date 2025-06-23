@@ -1,0 +1,17 @@
+name: WORKFLOW RUN TEST (initiator)
+
+on:
+  pull_request:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  run-tasks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Running step
+        run: |
+          echo "Welcome to the machine"
+          echo "SHA: ${{ github.event }}"

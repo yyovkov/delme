@@ -1,0 +1,16 @@
+name: Concurency 02
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-application
+  cancel-in-progress: false
+
+jobs:
+  display_context:
+    runs-on: ubuntu-latest
+    steps:
+          - name: Display Contexts
+            run: | 
+              echo I finished at $(date +%s)

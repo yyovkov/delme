@@ -1,0 +1,21 @@
+name: ENV OVERRIDE
+
+on:
+  workflow_dispatch:
+
+env:
+  MY_VAR: initial_value
+
+jobs:
+  override-variable:
+    runs-on: ubuntu-latest
+    steps:
+      - name: override variable
+        run: |
+          echo "MY_VAR=new_value" >> $GITHUB_ENV
+  execute:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Display variable"
+        run: |
+          echo "MY_VAR is: ${{ env.MY_VAR }}"

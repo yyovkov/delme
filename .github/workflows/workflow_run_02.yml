@@ -1,0 +1,23 @@
+name: WORKFLOW RUN TEST (follower)
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: [ "WORKFLOW RUN TEST (initiator)" ]
+    branches: [ master ]
+    types:
+      - completed
+
+jobs:
+  run-jobs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run step
+        run: |
+          echo "Run step from WORKFLOW RUN TEST (follower)"
+          echo "SHA: ${{ github.event.pull_request.head.sha }}"
+          echo "does not work: GITHUB_SHA ${{ env.GITHUB_SHA }}"
+          echo "GITHUB_SHA ${{ github.sha }}"
+          echo SHA_INITIATOR: "${{ github.event.workflow_run.head_sha }}"
+          echo "Finish"
+          env

@@ -1,16 +1,28 @@
 name: Example Workflow for Environment Files
 
-on: push
+on:
+  workflow_dispatch:
 
 jobs:
   set_and_use_env_vars:
     runs-on: ubuntu-latest
     steps:
       - name: Set environment variable
-        run: |
+        run: |-
           echo myValue > _MY_ENV_VAR
-          echo "MY_ENV_VAR=$(cat _MY_ENV_VAR) >> $GITHUB_ENV
+          echo "MY_ENV_VAR=$(cat _MY_ENV_VAR)" >> $GITHUB_ENV
+
+      - name: Set second variable derived from first
+        run: |-
+          echo VAR2=$(echo one) >> $GITHUB_ENV
 
       - name: Use environment variable
+        run: |-
+          echo "The value of MY_ENV_VAR is $(echo ${MY_ENV_VAR})"
+          echo "The value of VAR2 is $(echo ${VAR2})"
+
+      - name: List variables and values
+        shell: bash
         run: |
-          echo "The value of MY_ENV_VAR is $MY_ENV_VAR"
+          test -n "${{ env.VAR2 }}" && echo VAR2: ${{ env.VAR2 }} || { echo "The VAR2 is not setup"; exit 1 }
+          test -n "${{ env.MY_ENV_VAR }}" && echo MY_ENV_VAR: ${{ env.MY_ENV_VAR }} || {echo "The MY_ENV_VAR is not setup"; exit 1; }
