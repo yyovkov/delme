@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: override variable
         run: |
-          echo "MY_VAR=new_var" >> $GITHUB_ENV
+          echo "MY_VAR=new_value" >> $GITHUB_ENV
   execute:
     runs-on: ubuntu-latest
     steps:
