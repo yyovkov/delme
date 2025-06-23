@@ -20,4 +20,3 @@ jobs:
           echo "GITHUB_SHA ${{ github.sha }}"
           echo SHA_INITIATOR: "${{ github.event.workflow_run.head_sha }}"
           echo "Finish"
-          env
