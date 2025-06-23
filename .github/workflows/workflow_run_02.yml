@@ -2,6 +2,11 @@ name: WORKFLOW RUN TEST (follower)
 
 on:
   workflow_dispatch:
+    inputs:
+      sha:
+        description: 'SHA ref to build'
+        required: true
+        type: string
   workflow_run:
     workflows: [ "WORKFLOW RUN TEST (initiator)" ]
     branches: [ master ]
@@ -15,12 +20,27 @@ on:
         type: string
 
 jobs:
-  run-jobs:
+  set-variables:
     runs-on: ubuntu-latest
     steps:
-      - name: Run step
+      - name: Set variabels
+        run: |
+          echo "MY_VAR=my_value" >> $GITHUB_ENV
+
+  display-vars:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display vars
         run: |
           echo "Run step from WORKFLOW RUN TEST (follower)"
           echo "GITHUB_SHA ${{ github.sha }}"
           echo SHA_INITIATOR: "${{ github.event.workflow_run.head_sha }}"
           echo "Finish"
+          echo "MY_VAR=${{ env.MY_VAR }}"
+
+  second-job:
+    runs-on: ubuntu-latest 
+    steps:
+      - name: Display vars in the second job
+        run: |
+          echo "MY_VAR=my_value" >> $GITHUB_ENV
