@@ -8,7 +8,7 @@ on:
         required: true
         type: string
   workflow_run:
-    workflows: [ "DISABLE: WORKFLOW RUN TEST (initiator)" ]
+    workflows: [ "WORKFLOW RUN TEST (initiator)" ]
     branches: [ master ]
     types:
       - completed
@@ -20,16 +20,6 @@ on:
         type: string
 
 jobs:
-  set-variables:
-    runs-on: ubuntu-latest
-    outputs:
-      commit_sha: ${{ steps.set-sha.outputs.value }}
-    steps:
-      - id: set-sha
-        run: |
-          echo "value=my_variable_value" >> $GITHUB_OUTPUT
-
-
   display-vars:
     needs: set-variables
     runs-on: ubuntu-latest
@@ -37,16 +27,8 @@ jobs:
       - name: Display vars
         run: |
           echo "Run step from WORKFLOW RUN TEST (follower)"
+          echo "Event is: ${{ github.event_name }}"
           echo "GITHUB_SHA ${{ github.sha }}"
           echo SHA_INITIATOR: "${{ github.event.workflow_run.head_sha }}"
           echo "Finish"
-          echo "MY_VAR=${{ needs.set-variables.outputs.commit_sha }}"
-
-  second-job:
-    needs: set-variables
-    runs-on: ubuntu-latest 
-    steps:
-      - name: Display vars in the second job
-        run: |
-          echo "MY_VAR=${{ env.MY_VAR }}"
           echo "MY_VAR=${{ needs.set-variables.outputs.commit_sha }}"
