@@ -21,7 +21,6 @@ on:
 
 jobs:
   display-vars:
-    needs: set-variables
     runs-on: ubuntu-latest
     steps:
       - name: Display vars
