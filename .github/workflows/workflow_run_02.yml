@@ -43,6 +43,7 @@ jobs:
           echo "MY_VAR=${{ needs.set-variables.outputs.commit_sha }}"
 
   second-job:
+    needs: set-variables
     runs-on: ubuntu-latest 
     steps:
       - name: Display vars in the second job
