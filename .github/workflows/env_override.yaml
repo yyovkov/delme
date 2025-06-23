@@ -3,14 +3,13 @@ name: ENV OVERRIDE
 on:
   workflow_dispatch:
 
+env:
+  MY_VAR: initial_value
+
 jobs:
   execute:
     runs-on: ubuntu-latest
-    container:
-      image: ubuntu
     steps:
-      - name: "Running in a container"
-        env:
-          TEST_ENV_VALUE: test
+      - name: "Display variable"
         run: |
-          echo "Welcome"
+          echo "MY_VAR is: ${{ env.MY_VAR }}"
