@@ -27,7 +27,7 @@ jobs:
     steps:
       - id: set-sha
         run: |
-          echo "value=my_value" >> $GITHUB_OUTPUT
+          echo "value=my_variable_value" >> $GITHUB_OUTPUT
 
 
   display-vars:
