@@ -8,7 +8,7 @@ on:
         required: true
         type: string
   workflow_run:
-    workflows: [ "WORKFLOW RUN TEST (initiator)" ]
+    workflows: [ "DISABLE: WORKFLOW RUN TEST (initiator)" ]
     branches: [ master ]
     types:
       - completed
