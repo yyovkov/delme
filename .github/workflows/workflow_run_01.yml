@@ -26,9 +26,9 @@ jobs:
 
   second-task:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' }}
+    if: ${{ (github.event_name == 'pull_request' ) || (github.event_name == 'push') }}
     steps:
       - name: Run second test
         run: |
-          echo "Runs only on push to master 
+          echo "Runs only on push to master" 
           echo "Event is: ${{ github.event_name }}"
