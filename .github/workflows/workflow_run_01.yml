@@ -9,9 +9,10 @@ on:
 
 env:
   BUILD_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha}}
+  RUN_TASK: 'false'
 
 jobs:
-  run-tasks:
+  first-tasks:
     runs-on: ubuntu-latest
     steps:
       - name: Running step
@@ -22,3 +23,12 @@ jobs:
           echo "PULL SHA: ${{ github.event.pull_request.head.sha }}"
           echo "PUSH SHA: ${{ github.event.push.head.sha }}"
           echo "BUILD_SHA: ${{ env.BUILD_SHA }}"
+
+  second-task:
+    runs-on: ubuntu-latest
+    if: ${{ env.RUN_TASK == 'true' }}
+    steps:
+      - name: Run second test
+        run: |
+          echo "Runs only on push to master 
+          echo "Event is: ${{ github.event_name }}"
