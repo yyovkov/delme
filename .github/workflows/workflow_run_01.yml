@@ -26,7 +26,7 @@ jobs:
 
   second-task:
     runs-on: ubuntu-latest
-    if: ${{ RUN_TASK == 'true' }}
+    if: ${{ github.event_name == 'push' }}
     steps:
       - name: Run second test
         run: |
