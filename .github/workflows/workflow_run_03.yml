@@ -1,0 +1,21 @@
+name: Reusable Workflow with Input
+
+on:
+  workflow_call:
+    inputs:
+      sha:
+        description: 'SHA ref to build'
+        required: true
+        default: false
+        type: string
+
+env:
+  BUILD_SHA: ${{ inputs.sha }}
+
+jobs:
+  first-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Running step
+        run: |
+          echo BUILD_SHA: ${{ env.BUILD_SHA }}

@@ -24,11 +24,11 @@ jobs:
           echo "PUSH SHA: ${{ github.event.push.head.sha }}"
           echo "BUILD_SHA: ${{ env.BUILD_SHA }}"
 
-  second-task:
-    runs-on: ubuntu-latest
-    if: ${{ (github.event_name == 'pull_request' ) || (github.event_name == 'push') }}
-    steps:
-      - name: Run second test
-        run: |
-          echo "Runs only on push to master" 
-          echo "Event is: ${{ github.event_name }}"
+  reusable-workflow:
+    name: Reusable workflow
+    uses: ./.github/workflows/workflow_run_03.yml
+    with:
+      sha: ${{ github.sha }}
+    secrets:
+      GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
