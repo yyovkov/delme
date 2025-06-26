@@ -60,4 +60,4 @@ jobs:
         id: filter
         with:
           filters: .github/filters.yml
-          ref: ${{ env.before_sha }}
+          base: ${{ env.before_sha }}
