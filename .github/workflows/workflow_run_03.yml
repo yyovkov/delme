@@ -54,7 +54,7 @@ jobs:
         run: |
           BEFORE=$(git rev-parse "${{ github.event.workflow_run.head_sha }}^")
           echo "Before SHA: $BEFORE"
-          echo "before_sha=$BEFORE" >> $GITHUB_OUTPUT
+          echo "before_sha=$BEFORE" >> $GITHUB_ENV
 
       - uses: dorny/paths-filter@v3
         id: filter
