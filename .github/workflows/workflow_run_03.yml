@@ -3,6 +3,10 @@ name: Reusable Workflow with Input
 on:
   workflow_call:
     inputs:
+      before-sha:
+        description: 'SHA of the preivous commit'
+        required: true
+        type: string
       sha:
         description: 'SHA ref to build'
         required: true
@@ -21,22 +25,6 @@ jobs:
 #         run: |
 #           echo BUILD_SHA: ${{ env.BUILD_SHA }}
 
-  get-before-sha:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ env.BUILD_SHA }}
-          fetch-depth: 2
-
-      - name: Get parent (before) commit SHA
-        id: get-before
-        run: |
-          BEFORE=$(git rev-parse "${{ github.event.workflow_run.head_sha }}^")
-          echo "Before SHA: $BEFORE"
-          echo "before_sha=$BEFORE" >> $GITHUB_OUTPUT
-
   changes:
     runs-on: ubuntu-latest
     timeout-minutes: 1
@@ -49,17 +37,8 @@ jobs:
           ref: ${{ env.BUILD_SHA }}
           fetch-depth: 2
 
-      - name: Get parent (before) commit SHA
-        id: get-before
-        run: |
-          BEFORE=$(git rev-parse "${{ env.BUILD_SHA }}^")
-          echo "Before SHA: $BEFORE"
-          echo "before_sha=$BEFORE" >> $GITHUB_ENV
-
       - uses: dorny/paths-filter@v3
         id: filter
         with:
           filters: .github/filters.yml
-          ref: master
-          base: ${{ env.before_sha }}
-          # base: ${{ env.BUILD_SHA }}
+          ref: ${{ inputs.before-sha }}

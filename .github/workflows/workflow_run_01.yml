@@ -1,7 +1,7 @@
 name: WORKFLOW RUN TEST (initiator)
 
 on:
-  pull_request:
+  # pull_request:
   # workflow_dispatch:
   push:
     branches:
@@ -27,6 +27,13 @@ jobs:
           echo "Before: ${{ github.event.before }}"
           echo "After: ${{ github.event.after}}"
           echo "==="
+
+  reusable-workflow:
+    name: Reusable workflow
+    uses: ./.github/workflows/workflow_run_02.yml
+    with:
+      sha: ${{ github.sha }
+      before-sha: ${{ github.event.before }}
 
   show-payload:
     runs-on: ubuntu-latest
