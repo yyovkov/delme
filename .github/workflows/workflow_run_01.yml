@@ -23,3 +23,5 @@ jobs:
           echo "PULL SHA: ${{ github.event.pull_request.head.sha }}"
           echo "PUSH SHA: ${{ github.event.push.head.sha }}"
           echo "BUILD_SHA: ${{ env.BUILD_SHA }}"
+          echo "==="
+          echo "Before: ${{ github.event.push.before }}"
