@@ -31,3 +31,9 @@ jobs:
           echo SHA_INITIATOR: "${{ github.event.workflow_run.head_sha }}"
           echo "Finish"
           echo "MY_VAR=${{ needs.set-variables.outputs.commit_sha }}"
+
+  reusable-workflow:
+    name: Reusable workflow
+    uses: ./.github/workflows/workflow_run_03.yml
+    with:
+      sha: ${{ github.sha }}
