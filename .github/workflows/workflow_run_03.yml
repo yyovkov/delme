@@ -17,14 +17,6 @@ env:
   BUILD_SHA: ${{ inputs.sha }}
 
 jobs:
-
-#   first-job:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Running step
-#         run: |
-#           echo BUILD_SHA: ${{ env.BUILD_SHA }}
-
   changes:
     runs-on: ubuntu-latest
     timeout-minutes: 1

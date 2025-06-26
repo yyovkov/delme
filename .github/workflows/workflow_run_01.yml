@@ -33,7 +33,6 @@ jobs:
     uses: ./.github/workflows/workflow_run_02.yml
     with:
       sha: ${{ github.sha }}
-      # before-sha: ${{ github.event.before }}
 
   show-payload:
     runs-on: ubuntu-latest
