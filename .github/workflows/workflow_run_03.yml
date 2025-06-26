@@ -22,7 +22,7 @@ jobs:
 #           echo BUILD_SHA: ${{ env.BUILD_SHA }}
 
   changes:
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     timeout-minutes: 1
     outputs:
       images: ${{ steps.filter.outputs.images }}
