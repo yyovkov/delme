@@ -47,8 +47,17 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ env.BUILD_SHA }}
+          fetch-depth: 2
+
+      - name: Get parent (before) commit SHA
+        id: get-before
+        run: |
+          BEFORE=$(git rev-parse "${{ github.event.workflow_run.head_sha }}^")
+          echo "Before SHA: $BEFORE"
+          echo "before_sha=$BEFORE" >> $GITHUB_OUTPUT
 
       - uses: dorny/paths-filter@v3
         id: filter
         with:
           filters: .github/filters.yml
+          base: ${{ env.BEFORE }}
