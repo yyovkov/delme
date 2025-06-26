@@ -52,7 +52,7 @@ jobs:
       - name: Get parent (before) commit SHA
         id: get-before
         run: |
-          BEFORE=$(git rev-parse "${{ github.event.workflow_run.head_sha }}^")
+          BEFORE=$(git rev-parse "${{ env.BUILD_SHA }}^")
           echo "Before SHA: $BEFORE"
           echo "before_sha=$BEFORE" >> $GITHUB_ENV
 
