@@ -60,6 +60,6 @@ jobs:
         id: filter
         with:
           filters: .github/filters.yml
-          ref: ${{ env.BUILD_SHA }}
+          ref: master
           # base: ${{ env.before_sha }}
-          base: master
+          base: ${{ env.BUILD_SHA }}
