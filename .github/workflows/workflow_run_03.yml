@@ -21,6 +21,21 @@ jobs:
 #         run: |
 #           echo BUILD_SHA: ${{ env.BUILD_SHA }}
 
+  get-before-sha:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Get parent (before) commit SHA
+        id: get-before
+        run: |
+          BEFORE=$(git rev-parse "${{ github.event.workflow_run.head_sha }}^")
+          echo "Before SHA: $BEFORE"
+          echo "before_sha=$BEFORE" >> $GITHUB_OUTPUT
+
   changes:
     runs-on: ubuntu-latest
     timeout-minutes: 1
