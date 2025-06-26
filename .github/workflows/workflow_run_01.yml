@@ -27,7 +27,6 @@ jobs:
           echo "Before: ${{ github.event.before }}"
           echo "After: ${{ github.event.after}}"
           echo "==="
-          run: echo '${{ toJson(github) }}'
 
   show-payload:
     runs-on: ubuntu-latest
