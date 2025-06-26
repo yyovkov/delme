@@ -24,7 +24,8 @@ jobs:
           echo "PUSH SHA: ${{ github.event.push.head.sha }}"
           echo "BUILD_SHA: ${{ env.BUILD_SHA }}"
           echo "==="
-          echo "Before: ${{ github.event.push.before }}"
+          echo "Before: ${{ github.event.before }}"
+          echo "After: ${{ github.event.after}}"
 
   show-payload:
     runs-on: ubuntu-latest
