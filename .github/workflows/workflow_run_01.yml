@@ -25,3 +25,9 @@ jobs:
           echo "BUILD_SHA: ${{ env.BUILD_SHA }}"
           echo "==="
           echo "Before: ${{ github.event.push.before }}"
+
+  show-payload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        run: echo "${{ toJson(github) }}"
