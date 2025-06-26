@@ -26,9 +26,5 @@ jobs:
           echo "==="
           echo "Before: ${{ github.event.before }}"
           echo "After: ${{ github.event.after}}"
-
-  show-payload:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Dump GitHub context
-        run: echo '${{ toJson(github) }}'
+          echo "==="
+          run: echo '${{ toJson(github) }}'
