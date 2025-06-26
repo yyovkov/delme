@@ -32,7 +32,7 @@ jobs:
     name: Reusable workflow
     uses: ./.github/workflows/workflow_run_02.yml
     with:
-      sha: ${{ github.sha }
+      sha: ${{ github.sha }}
       before-sha: ${{ github.event.before }}
 
   show-payload:
