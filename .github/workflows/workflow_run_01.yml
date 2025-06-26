@@ -1,7 +1,7 @@
 name: WORKFLOW RUN TEST (initiator)
 
 on:
-  # pull_request:
+  pull_request:
   # workflow_dispatch:
   push:
     branches:
