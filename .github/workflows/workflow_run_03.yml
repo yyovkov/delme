@@ -3,10 +3,10 @@ name: Reusable Workflow with Input
 on:
   workflow_call:
     inputs:
-      before-sha:
-        description: 'SHA of the preivous commit'
-        required: true
-        type: string
+      # before-sha:
+      #   description: 'SHA of the preivous commit'
+      #   required: true
+      #   type: string
       sha:
         description: 'SHA ref to build'
         required: true
@@ -41,4 +41,4 @@ jobs:
         id: filter
         with:
           filters: .github/filters.yml
-          ref: ${{ inputs.before-sha }}
+          # ref: ${{ inputs.before-sha }}

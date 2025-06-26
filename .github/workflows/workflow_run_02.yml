@@ -14,10 +14,10 @@ on:
   #     - completed
   workflow_call:
     inputs:
-      before-sha:
-        description: 'SHA of the preivous commit'
-        required: true
-        type: string
+      # before-sha:
+      #   description: 'SHA of the preivous commit'
+      #   required: true
+      #   type: string
       sha:
         description: 'SHA ref to build'
         required: true
@@ -46,5 +46,5 @@ jobs:
     name: Reusable workflow
     uses: ./.github/workflows/workflow_run_03.yml
     with:
-      before-sha: ${{ inputs.before-sha }}
+      # before-sha: ${{ inputs.before-sha }}
       sha: ${{ github.sha }}
