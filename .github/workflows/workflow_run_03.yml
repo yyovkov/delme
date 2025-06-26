@@ -61,5 +61,5 @@ jobs:
         with:
           filters: .github/filters.yml
           ref: master
-          # base: ${{ env.before_sha }}
-          base: ${{ env.BUILD_SHA }}
+          base: ${{ env.before_sha }}
+          # base: ${{ env.BUILD_SHA }}
