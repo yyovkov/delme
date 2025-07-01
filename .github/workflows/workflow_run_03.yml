@@ -12,6 +12,11 @@ on:
         required: true
         default: false
         type: string
+      force:
+        description: 'Force build images'
+        required: false
+        default: false
+        type: boolean
 
 env:
   BUILD_SHA: ${{ inputs.sha }}
@@ -34,3 +39,11 @@ jobs:
         with:
           filters: .github/filters.yml
           # ref: ${{ inputs.before-sha }}
+
+  build-image-one:
+    if: ${{ (needs.changes.outputs.images == 'true') || (inputs.force == true) }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Image One
+        run: |
+          echo Running Build Image one
