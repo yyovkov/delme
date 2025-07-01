@@ -14,6 +14,5 @@ jobs:
     uses: ./.github/workflows/workflow_run_03.yml
     with:
       sha: ${{ github.sha }}
-      force: true
     secrets:
       GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
