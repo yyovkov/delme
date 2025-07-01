@@ -6,7 +6,6 @@ on:
       sha:
         description: 'SHA ref to build'
         required: true
-        default: false
         type: string
       force:
         description: 'Force build images'
@@ -34,14 +33,6 @@ jobs:
         id: filter
         with:
           filters: .github/filters.yml
-          base: master
-
-      - name: test task
-        if: ${{ inputs.force == true }}
-        id: filter
-        run: |
-          echo "true"
-
 
   build-image-one:
     if: ${{ (needs.changes.outputs.images == 'true') || (inputs.force == true) }}
