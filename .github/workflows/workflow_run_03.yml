@@ -20,7 +20,7 @@ on:
 
 env:
   BUILD_SHA: ${{ inputs.sha }}
-  BASE_SHA: ${{ github.event.before || HEAD }}
+  BASE_SHA: ${{ github.event.before || "HEAD" }}
 
 jobs:
   show-payload:
