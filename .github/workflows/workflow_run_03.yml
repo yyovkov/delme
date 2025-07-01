@@ -37,6 +37,7 @@ jobs:
 
   build-image-one:
     if: ${{ (needs.changes.outputs.images == 'true') || (inputs.force == true) }}
+    needs: changes
     runs-on: ubuntu-latest
     steps:
       - name: Build Image One
