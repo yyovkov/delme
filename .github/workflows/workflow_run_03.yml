@@ -29,7 +29,6 @@ jobs:
           ref: ${{ env.BUILD_SHA }}
 
       - uses: dorny/paths-filter@v3
-        if: ${{ inputs.force == false}}
         id: filter
         with:
           filters: .github/filters.yml
