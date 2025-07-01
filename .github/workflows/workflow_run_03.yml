@@ -22,6 +22,12 @@ env:
   BASE_SHA: ${{ inputs.base_sha }}
 
 jobs:
+  show-payload:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Dump GitHub context
+          run: echo '${{ toJson(github) }}'
+          
   changes:
     runs-on: ubuntu-latest
     timeout-minutes: 1
@@ -38,7 +44,6 @@ jobs:
         id: filter
         with:
           filters: .github/filters.yml
-          base: "origin/master"
 
   build-image-one:
     if: ${{ (needs.changes.outputs.images == 'true') || (inputs.force == true) }}
