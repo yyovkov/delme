@@ -22,6 +22,16 @@ on:
         description: 'SHA ref to build'
         required: true
         type: string
+      base_sha:
+        description: 'Base SHA for diff (optional)'
+        required: false
+        type: string
+        default: ${{ github.event.before }}
+      force:
+        description: 'Force build images'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   display-vars:
@@ -47,4 +57,5 @@ jobs:
     uses: ./.github/workflows/workflow_run_03.yml
     with:
       sha: ${{ github.sha }}
-      base_sha: ${{ github.event.before }}
+      base_sha: ${{ inputs.base_sha }}
+      force: true
