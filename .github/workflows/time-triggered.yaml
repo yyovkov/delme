@@ -22,5 +22,4 @@ jobs:
     uses: ./.github/workflows/workflow_run_02.yml
     with:
       sha: ${{ github.sha }}
-      base_sha: HEAD
-      force: true
+      base_sha: master
