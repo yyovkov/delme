@@ -30,10 +30,18 @@ jobs:
           ref: ${{ env.BUILD_SHA }}
 
       - uses: dorny/paths-filter@v3
+        if: ${{ inputs.force == false}}
         id: filter
         with:
           filters: .github/filters.yml
           base: master
+
+      - name: test task
+        if: ${{ inputs.force == true }}
+        id: filter
+        run: |
+          echo "true"
+
 
   build-image-one:
     if: ${{ (needs.changes.outputs.images == 'true') || (inputs.force == true) }}
