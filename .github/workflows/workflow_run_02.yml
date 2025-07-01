@@ -56,6 +56,6 @@ jobs:
     name: Invoke workflow 03
     uses: ./.github/workflows/workflow_run_03.yml
     with:
-      sha: ${{ github.sha }}
+      sha: ${{ inputs.sha }}
       base_sha: ${{ inputs.base_sha }}
       force: true
