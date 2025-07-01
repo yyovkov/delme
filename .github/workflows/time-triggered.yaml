@@ -9,6 +9,14 @@ env:
   BUILD_SHA: ${{ github.sha }}
 
 jobs:
+  display-variables:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display Variables
+        run: |
+          echo "BUILD_SHA: ${{ env.BUILD_SHA }}
+          echo "GITHUB SHA: ${{ github.sha }}
+
   build-docker-base-images:
     name: Build Docker Images
     uses: ./.github/workflows/workflow_run_03.yml
