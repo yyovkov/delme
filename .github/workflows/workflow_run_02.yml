@@ -43,7 +43,7 @@ jobs:
         run: echo '${{ toJson(github) }}'
 
   reusable-workflow:
-    name: Reusable workflow
+    name: Invoke workflow 03
     uses: ./.github/workflows/workflow_run_03.yml
     with:
       # before-sha: ${{ inputs.before-sha }}

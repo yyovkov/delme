@@ -29,7 +29,7 @@ jobs:
           echo "==="
 
   reusable-workflow:
-    name: Reusable workflow
+    name: Invoke workflow 02
     uses: ./.github/workflows/workflow_run_02.yml
     with:
       sha: ${{ github.sha }}
