@@ -19,7 +19,6 @@ env:
 
 jobs:
   changes:
-    if: ${{ inputs.force == false }}
     runs-on: ubuntu-latest
     timeout-minutes: 1
     outputs:
