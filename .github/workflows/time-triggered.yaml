@@ -22,3 +22,4 @@ jobs:
     uses: ./.github/workflows/workflow_run_03.yml
     with:
       sha: ${{ github.sha }}
+      force: true
