@@ -39,6 +39,10 @@ jobs:
         with:
           ref: ${{ env.BUILD_SHA }}
 
+      - name: Display branches
+        run: |
+          git branch -a
+
       - uses: dorny/paths-filter@v3
         id: filter
         with:
