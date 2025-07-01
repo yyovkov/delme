@@ -2,6 +2,10 @@ name: Time triggered
 
 on:
   workflow_dispatch:
+    inputs:
+      sha:
+        description: 'SHA ref to deploy'
+        required: true
   # schedule:
   #   - cron: '*/5 * * * *'
 
@@ -21,5 +25,5 @@ jobs:
     name: Build Docker Images
     uses: ./.github/workflows/workflow_run_02.yml
     with:
-      sha: ${{ github.sha }}
+      sha: ${{ inputs.sha }}
       base_sha: master
