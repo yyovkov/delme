@@ -2,10 +2,10 @@ name: WORKFLOW RUN TEST (initiator)
 
 on:
   # pull_request:
-  # workflow_dispatch:
-  push:
-    branches:
-      - 'master'
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - 'master'
 
 env:
   BUILD_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha}}
