@@ -68,7 +68,7 @@ jobs:
           echo Status of job-four: ${{ needs.job-four.result }}
           echo Status of job-five: ${{ needs.job-five.result }}
 
-          jobs_failed=0
+          export jobs_failed=0
           declare -A results=(
             [job-one]="${{ needs.job-one.result }}"
             [job-two]="${{ needs.job-tow.result }}"
