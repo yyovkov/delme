@@ -53,17 +53,36 @@ jobs:
     name: All jobs completed
     runs-on: ubuntu-latest
     if: always()
+    needs:
+      - job-one
+      - job-two
+      - job-three
+      - job-four
+      - job-five
     steps:
+      - name: Export needds as JSON
+        run: |
+          echo "NEEDS_JSON=${{ toJson(needs) }}" >> GITHUB_ENV
+
       - name: Check jobs results
         shell: python
         run: |
           import json
+          import os
           import sys
 
-          needs_json = '''${{ toJson(needs) }}'''
-          needs = json.loads(needs_json)
+          try:
+            needs = json.loads(os.environ["NEEDS_JSON"])
+          except Exception as e:
+            print("Failed to parse needs JSON.")
+            raise
+          
+          failures = []
 
-          print(f"{needs_json}")
+          print(needs)
+
+
+
 
   # wait-for-all:
   #   name: All jobs completed
