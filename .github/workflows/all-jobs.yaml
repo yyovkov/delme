@@ -87,7 +87,7 @@ jobs:
             if result not in ("success", "skipped"):
               jobs_failed.append(job_name)
 
-          if job_failed:
+          if jobs_failed:
             sys.exit(1)
 
           print("All jobs completed successfully")
