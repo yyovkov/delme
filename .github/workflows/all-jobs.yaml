@@ -79,13 +79,18 @@ jobs:
             print("Failed to parse needs JSON.")
             raise
           
-          failures = []
+          jobs_failed = []
 
           for job_name, job_info in needs.items():
             result = job_info.get("result", "unknown")
             
-            print("Job Name: " + job_name + " result: " + result)
+            if result not in ("success", "skipped"):
+              jobs_failed.append(job_name)
 
+          if job_failed:
+            sys.exit(1)
+
+          print("All jobs completed successfully")
 
 
 
