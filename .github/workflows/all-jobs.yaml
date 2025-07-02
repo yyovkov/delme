@@ -88,7 +88,7 @@ jobs:
               jobs_failed.append(job_name)
 
           if jobs_failed:
-            print("Failing due to: {', '.join(jobs_failed)}
+            print("Failing due to: {', '.join(jobs_failed)"}
             sys.exit(1)
 
           print("All jobs completed successfully")
