@@ -87,7 +87,7 @@ jobs:
           done
 
           # Fail if there is failed job
-          if [[ ${{ jobs_failed}} -ne 0 ]]
+          if [[ ${{jobs_failed}} -ne 0 ]]
           then
             exit 1
           fi
