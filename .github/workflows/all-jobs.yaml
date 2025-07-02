@@ -58,10 +58,12 @@ jobs:
         shell: python
         run: |
           import json
-          import os
           import sys
 
-          print(f"${{ toJson(needs) }}")
+          needs_json = '''${{ toJson(needs) }}'''
+          needs = json.loads(needs_json)
+
+          print(f"{needs}")
 
   # wait-for-all:
   #   name: All jobs completed
