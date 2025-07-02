@@ -61,7 +61,7 @@ jobs:
           import os
           import sys
 
-          needs = json.loads(${{ toJSon(needs) }})
+          needs = json.loads(${{ toJson(needs) }})
           print(f"{needs}")
 
   # wait-for-all:
