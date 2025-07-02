@@ -72,6 +72,7 @@ jobs:
             [job-five]="${{ needs.job-five.result }}"
           )
 
+          # Check if there is any job in status 'failure'
           for job_result in ${job_results[@]}
           do
             if [[ ${job_result} == 'failure' ]]
@@ -82,8 +83,8 @@ jobs:
 
           echo Failed jobs: ${jobs_failed}
 
-          # # Fail if there is failed job
-          # if [[ ${jobs_failed} -ne 0 ]]
-          # then
-          #   exit 1
-          # fi
+          # Fail if there is failed job
+          if [[ ${jobs_failed} -ne 0 ]]
+          then
+            exit 1
+          fi
