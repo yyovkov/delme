@@ -63,7 +63,7 @@ jobs:
           needs_json = '''${{ toJson(needs) }}'''
           needs = json.loads(needs_json)
 
-          print(f"{needs}")
+          print(f"{needs_json}")
 
   # wait-for-all:
   #   name: All jobs completed
