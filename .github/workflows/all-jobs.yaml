@@ -72,17 +72,13 @@ jobs:
             [job-five]="${{ needs.job-five.result }}"
           )
 
-          # for job_result in ${job_results[@]}
-          # do
-          #   if [[ ${job_result} == 'failure' ]]
-          #   then
-          #     echo "Job failed"
-          #     # ((jobs_failed++))
-          #   fi
-          # done
-
-          # ((jobs_failed++))
-          jobs_failed=$((jobs_failed + 1))
+          for job_result in ${job_results[@]}
+          do
+            if [[ ${job_result} == 'failure' ]]
+            then
+              jobs_failed=$((jobs_failed + 1))
+            fi
+          done
 
           echo Failed jobs: ${jobs_failed}
 
