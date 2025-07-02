@@ -79,9 +79,10 @@ jobs:
             fi
           done
 
-          # Fail if there is failed job
           echo Failed jobs: ${jobs_failed}
-          if [[ ${jobs_failed} -ne 0 ]]
-          then
-            exit 0
-          fi
+
+          # # Fail if there is failed job
+          # if [[ ${jobs_failed} -ne 0 ]]
+          # then
+          #   exit 1
+          # fi
