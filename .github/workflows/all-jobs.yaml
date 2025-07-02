@@ -1,0 +1,26 @@
+name: All Jobs Completed
+
+on:
+  workflow_dispatch:
+
+jobs:
+  job-one:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Job One Step One
+        run: |
+          echo Run Job One Step One
+  
+  job-two:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Job Two Step One
+        run: |
+          echo Run Two One Step One
+
+  job-three:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Job Three Step One
+        run: |
+          echo Run Three One Step One
