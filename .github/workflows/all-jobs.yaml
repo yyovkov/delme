@@ -3,6 +3,9 @@ name: All Jobs Completed
 on:
   workflow_dispatch:
 
+env:
+  RUN_JOB_FIVE="false"
+
 jobs:
   job-one:
     runs-on: ubuntu-latest
@@ -33,7 +36,7 @@ jobs:
           echo Run Four One Step One
 
   job-five:
-    if: never()
+    if: (${{ env.RUN_JOB_FIVE}} == 'true' )
     runs-on: ubuntu-latest
     steps:
       - name: Job Five Step One
