@@ -2,6 +2,12 @@ name: All Jobs Completed
 
 on:
   workflow_dispatch:
+    inputs:
+      run_job_five:
+        description: Whether to run or not
+        required: false
+        default: "false"
+        type: string
 
 env:
   RUN_JOB_FIVE: 'false'
