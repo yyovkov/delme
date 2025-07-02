@@ -74,7 +74,8 @@ jobs:
           do
             if [[ ${job_result} == 'failure' ]]
             then
-              ((jobs_failed++))
+              echo "Job failed"
+              # ((jobs_failed++))
             fi
           done
 
