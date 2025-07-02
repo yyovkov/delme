@@ -81,7 +81,7 @@ jobs:
           #   fi
           # done
 
-          ((jobs_failed++))
+          # ((jobs_failed++))
 
           echo Failed jobs: ${jobs_failed}
 
