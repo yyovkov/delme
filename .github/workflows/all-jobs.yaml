@@ -82,6 +82,7 @@ jobs:
           # done
 
           # ((jobs_failed++))
+          jobs_failed=$((jobs_failed + 1))
 
           echo Failed jobs: ${jobs_failed}
 
