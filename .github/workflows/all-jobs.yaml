@@ -81,7 +81,10 @@ jobs:
           
           failures = []
 
-          print(needs)
+          for job_name, job_info in needs.items():
+            result = job.info.get("results", "unknown")
+            
+            print("Job Name: " + job_name + "reuslt: " + result)
 
 
 
