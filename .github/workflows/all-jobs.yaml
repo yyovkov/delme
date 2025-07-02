@@ -48,14 +48,21 @@ jobs:
       - name: Job Five Step One
         run: |
           echo Run Five One Step One
-
+    
   wait-for-all:
     name: All jobs completed
     runs-on: ubuntu-latest
     if: always()
     steps:
-      - uses: kachick/wait-other-jobs@v3.8.1
-        timeout-minutes: 15
+      - name: Check jobs results
+        shell: python
+        run: |
+          import json
+          import os
+          import sys
+
+          needs = json.loads(${{ toJSon(needs) }})
+          print(f"{needs}")
 
   # wait-for-all:
   #   name: All jobs completed
