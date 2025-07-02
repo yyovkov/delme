@@ -67,4 +67,5 @@ jobs:
           echo Status of job-three: ${{ needs.job-three.result }}
           echo Status of job-four: ${{ needs.job-four.result }}
           echo Status of job-five: ${{ needs.job-five.result }}
+          echo Needs is: ${{ needs }}
 
