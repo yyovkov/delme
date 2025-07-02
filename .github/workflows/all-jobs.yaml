@@ -62,7 +62,9 @@ jobs:
     steps:
       - name: Export needds as JSON
         run: |
-          echo NEEDS_JSON=${{ toJson(needs) }} >> $GITHUB_ENV
+          echo "NEEDS_JSON<<EOF" >> $GITHUB_ENV
+          echo '${{ toJson(needs) }}' >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Check jobs results
         shell: python
