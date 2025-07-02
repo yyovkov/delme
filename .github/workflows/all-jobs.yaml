@@ -80,8 +80,9 @@ jobs:
           for job_result in ${job_results[@]}
           do
             echo ${job_result}
-            if [[ ${job_result} == "failure" ]]
+            if [[ ${job_result} == 'failure' ]]
             then
+              echo "Job failed"
               ((jobs_failed++))
             fi
           done
