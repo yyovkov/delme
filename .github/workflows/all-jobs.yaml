@@ -53,41 +53,49 @@ jobs:
     name: All jobs completed
     runs-on: ubuntu-latest
     if: always()
-    needs:
-      - job-one
-      - job-two
-      - job-three
-      - job-four
-      - job-five
     steps:
-      - name: Check jobs results
-        shell: bash
-        run: |
-          echo "==="
-          echo '${{ toJson(needs) }}'
-          echo "==="
-          export jobs_failed=0
-          declare -A job_results=(
-            [job-one]="${{ needs.job-one.result }}"
-            [job-two]="${{ needs.job-two.result }}"
-            [job-three]="${{ needs.job-three.result }}"
-            [job-four]="${{ needs.job-four.result }}"
-            [job-five]="${{ needs.job-five.result }}"
-          )
+      - uses: kachick/wait-other-jobs@v3.8.1
+        timeout-minutes: 15
 
-          # Check if there is any job in status 'failure'
-          for job_result in ${job_results[@]}
-          do
-            if [[ ${job_result} == 'failure' ]]
-            then
-              jobs_failed=$((jobs_failed + 1))
-            fi
-          done
+  # wait-for-all:
+  #   name: All jobs completed
+  #   runs-on: ubuntu-latest
+  #   if: always()
+  #   needs:
+  #     - job-one
+  #     - job-two
+  #     - job-three
+  #     - job-four
+  #     - job-five
+  #   steps:
+  #     - name: Check jobs results
+  #       shell: bash
+  #       run: |
+  #         echo "==="
+  #         echo '${{ toJson(needs) }}'
+  #         echo "==="
+  #         export jobs_failed=0
+  #         declare -A job_results=(
+  #           [job-one]="${{ needs.job-one.result }}"
+  #           [job-two]="${{ needs.job-two.result }}"
+  #           [job-three]="${{ needs.job-three.result }}"
+  #           [job-four]="${{ needs.job-four.result }}"
+  #           [job-five]="${{ needs.job-five.result }}"
+  #         )
 
-          echo Failed jobs: ${jobs_failed}
+  #         # Check if there is any job in status 'failure'
+  #         for job_result in ${job_results[@]}
+  #         do
+  #           if [[ ${job_result} == 'failure' ]]
+  #           then
+  #             jobs_failed=$((jobs_failed + 1))
+  #           fi
+  #         done
 
-          # Fail if there is failed job
-          if [[ ${jobs_failed} -ne 0 ]]
-          then
-            exit 1
-          fi
+  #         echo Failed jobs: ${jobs_failed}
+
+  #         # Fail if there is failed job
+  #         if [[ ${jobs_failed} -ne 0 ]]
+  #         then
+  #           exit 1
+  #         fi
