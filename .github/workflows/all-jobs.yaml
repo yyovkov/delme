@@ -58,6 +58,5 @@ jobs:
       - job-three
       - job-four
       - job-five
-    if: always()
     steps:
       - run: echo "All dependent jobs have completed."
