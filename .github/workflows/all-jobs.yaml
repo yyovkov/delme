@@ -36,7 +36,7 @@ jobs:
           echo Run Four One Step One
 
   job-five:
-    if: env.RUN_JOB_FIVE == 'true'
+    if: ${{ env.RUN_JOB_FIVE == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Job Five Step One
