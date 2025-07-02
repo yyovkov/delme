@@ -31,3 +31,15 @@ jobs:
       - name: Job Four Step One
         run: |
           echo Run Four One Step One
+
+  wait-for-all:
+    name: All jobs completed
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    needs:
+      - job-one
+      - job-two
+      - job-three
+      - job-four
+    if: always()
+    steps:
+      - run: echo "All dependent jobs have completed."
