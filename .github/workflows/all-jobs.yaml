@@ -32,6 +32,14 @@ jobs:
         run: |
           echo Run Four One Step One
 
+  job-five:
+    if: never()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Job Five Step One
+        run: |
+          echo Run Five One Step One
+
   wait-for-all:
     name: All jobs completed
     runs-on: ubuntu-latest
@@ -40,6 +48,7 @@ jobs:
       - job-two
       - job-three
       - job-four
+      - job-five
     if: always()
     steps:
       - run: echo "All dependent jobs have completed."
