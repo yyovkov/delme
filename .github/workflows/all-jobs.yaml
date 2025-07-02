@@ -32,7 +32,7 @@ jobs:
     steps:
       - name: Job Three Step One
         run: |
-          exit 0
+          exit 1
 
   job-four:
     runs-on: ubuntu-latest
