@@ -52,6 +52,7 @@ jobs:
   wait-for-all:
     name: All jobs completed
     runs-on: ubuntu-latest
+    if: always()
     needs:
       - job-one
       - job-two
@@ -59,4 +60,11 @@ jobs:
       - job-four
       - job-five
     steps:
-      - run: echo "All dependent jobs have completed."
+      - run: |
+          echo All dependent jobs have completed.
+          echo Status of job-one: ${{ needs.job-one.result }}
+          echo Status of job-two: ${{ needs.job-two.result }}
+          echo Status of job-three: ${{ needs.job-three.result }}
+          echo Status of job-four: ${{ needs.job-four.result }}
+          echo Status of job-five: ${{ needs.job-five.result }}
+
