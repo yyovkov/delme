@@ -60,7 +60,9 @@ jobs:
       - job-four
       - job-five
     steps:
-      - run: |
+      - name: Check jobs results
+        shell: bash
+        run: |
           export jobs_failed=0
           declare -A job_results=(
             [job-one]="${{ needs.job-one.result }}"
