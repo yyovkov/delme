@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  RUN_JOB_FIVE="false"
+  RUN_JOB_FIVE: "false"
 
 jobs:
   job-one:
