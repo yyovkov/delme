@@ -23,10 +23,17 @@ env:
 
 jobs:
   show-payload:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Dump GitHub context
-          run: echo '${{ toJson(github) }}'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        run: echo '${{ toJson(github) }}'
+  
+  display-variables:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display variables
+        run: |
+          echo BUILD_SHA (input.sha): ${{ env.BUILD_SHA }}
           
   changes:
     runs-on: ubuntu-latest
@@ -59,3 +66,4 @@ jobs:
       - name: Build Image One
         run: |
           echo Running Build Image one
+          echo TAG: ${{ env.BUILD_SHA }}
