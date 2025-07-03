@@ -34,6 +34,7 @@ jobs:
       - name: Display variables
         run: |
           echo "BUILD_SHA (input.sha): ${{ env.BUILD_SHA }}"
+          echo "BASE_SHA (inputs.base_sha): ${{ inputs.base_sha }}"
           
   changes:
     runs-on: ubuntu-latest
