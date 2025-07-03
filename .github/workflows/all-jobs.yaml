@@ -30,7 +30,7 @@ jobs:
     name: Build Docker Images
     uses: ./.github/workflows/workflow_run_03.yml
     with:
-      sha: ${{ github.sha }}
+      sha: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
 
   job-one:
     runs-on: ubuntu-latest
