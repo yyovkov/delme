@@ -55,8 +55,8 @@ jobs:
         id: filter
         with:
           filters: .github/filters.yml
-          ref: ${{ env.BUILD_SHA }}
           base: ${{ inputs.base_sha }}
+          ref: ${{ env.BUILD_SHA }}
 
   build-image-one:
     if: ${{ (needs.changes.outputs.images == 'true') || (inputs.force == true) }}
