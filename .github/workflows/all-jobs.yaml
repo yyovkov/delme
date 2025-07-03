@@ -31,6 +31,7 @@ jobs:
     uses: ./.github/workflows/workflow_run_03.yml
     with:
       sha: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+      base_sha: ${{ github.event.before }}
 
   job-one:
     runs-on: ubuntu-latest
