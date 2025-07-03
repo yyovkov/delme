@@ -33,7 +33,7 @@ jobs:
     steps:
       - name: Display variables
         run: |
-          echo BUILD_SHA (input.sha): ${{ env.BUILD_SHA }}
+          echo "BUILD_SHA (input.sha): ${{ env.BUILD_SHA }}"
           
   changes:
     runs-on: ubuntu-latest
