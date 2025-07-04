@@ -34,7 +34,8 @@ jobs:
     steps:
       - name: Check if the commit is in master
         run: |
-          git merge-base --is-ancestor ${{ env.COMMIT }} master
+          git merge-base --is-ancestor ${{ env.COMMIT }} master \
+          || (echo "The commit is not in master branch"; exit 1)
   
   display-variables:
     runs-on: ubuntu-latest
