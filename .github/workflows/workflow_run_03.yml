@@ -51,9 +51,10 @@ jobs:
       - name: Check commit is in master
         shell: bash
         run: |
-          git branch
-          git branch --contains ${{ env.BUILD_SHA }}
-          git merge-base --is-ancestor ${{ env.BUILD_SHA }} origin/master
+          # git branch
+          # git branch --contains ${{ env.BUILD_SHA }}
+          git merge-base --is-ancestor ${{ env.BUILD_SHA }} origin/master \
+          || (echo "Commit not in master"; exit 1)
 
       - uses: dorny/paths-filter@v3
         id: filter
