@@ -9,10 +9,10 @@ on:
   #       required: false
   #       default: "false"
   #       type: string
-  pull_request:
-  push:
-    branches:
-      - 'master'
+  # pull_request:
+  # push:
+  #   branches:
+  #     - 'master'
 
 env:
   RUN_JOB_FIVE: 'false'
