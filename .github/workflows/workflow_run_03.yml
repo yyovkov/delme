@@ -46,12 +46,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ env.BUILD_SHA }}
+          fetch-depth: 0
 
       - name: Check commit is in master
         shell: bash
         run: |
-          # git merge-base --is-ancestor 885185693c787dd2f501d205c9d80109b9d2953f master
           git branch
+          git merge-base --is-ancestor 885185693c787dd2f501d205c9d80109b9d2953f master
 
       - uses: dorny/paths-filter@v3
         id: filter
