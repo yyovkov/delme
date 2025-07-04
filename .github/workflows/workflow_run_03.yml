@@ -48,6 +48,8 @@ jobs:
   changes:
     runs-on: ubuntu-latest
     timeout-minutes: 1
+    needs:
+      - check-commit-is-in-master
     outputs:
       images: ${{ steps.filter.outputs.images }}
       mtellb: ${{ steps.filter.outputs.metallb }}
@@ -65,7 +67,8 @@ jobs:
 
   build-image-one:
     if: ${{ (needs.changes.outputs.images == 'true') || (inputs.force == true) }}
-    needs: changes
+    needs: 
+      - changes
     runs-on: ubuntu-latest
     steps:
       - name: Build Image One
