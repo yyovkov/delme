@@ -39,8 +39,6 @@ jobs:
   changes:
     runs-on: ubuntu-latest
     timeout-minutes: 1
-    needs:
-      - check-commit-is-in-master
     outputs:
       images: ${{ steps.filter.outputs.images }}
       mtellb: ${{ steps.filter.outputs.metallb }}
@@ -50,6 +48,7 @@ jobs:
           ref: ${{ env.BUILD_SHA }}
 
       - name: Check commit is in master
+        shell: bash
         run: |
           git merge-base --is-ancestor ${{ env.COMMIT }} master \
           || (echo "The commit is not in master branch"; exit 1)
