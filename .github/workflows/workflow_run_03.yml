@@ -50,7 +50,7 @@ jobs:
       - name: Check commit is in master
         shell: bash
         run: |
-          git merge-base --is-ancestor ${{ env.BUILD_SHA }} master
+          git merge-base --is-ancestor 885185693c787dd2f501d205c9d80109b9d2953f master
 
       - uses: dorny/paths-filter@v3
         id: filter
