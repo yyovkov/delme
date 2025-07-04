@@ -52,7 +52,8 @@ jobs:
         shell: bash
         run: |
           git branch
-          git merge-base --is-ancestor 885185693c787dd2f501d205c9d80109b9d2953f master
+          git branch --contains ${{ env.BUILD_SHA }}
+          # git merge-base --is-ancestor 885185693c787dd2f501d205c9d80109b9d2953f master
 
       - uses: dorny/paths-filter@v3
         id: filter
