@@ -14,7 +14,7 @@ jobs:
       Registry: europe-west1-docker.pkg.dev/triple-management/triple
       Image: golang
       BaseTag: 1.24.6
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Display Contexts
         run: | 
@@ -60,4 +60,4 @@ jobs:
           provenance: false
           build-args: GIT_COMMIT=${{ github.event.pull_request.head.sha || github.sha }}
           tags: |
-            ${{ env.Registry }}/${{ env.Image }}:${{ env.BaseTag }}-${{ env.BUILD_SHA }}
+            ${{ env.Registry }}/${{ env.Image }}:${{ env.BaseTag }}-${{ github.sha }}
