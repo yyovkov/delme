@@ -50,6 +50,7 @@ jobs:
           username: ${{ vars.DEV_DOCKERHUB_USER }}
           password: ${{ secrets.DEV_DOCKERHUB_PAT }}
 
+      # Adding this line for zero-change test
       - name: Push prod image
         timeout-minutes: 15
         uses: docker/build-push-action@v5
