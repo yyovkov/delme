@@ -2,47 +2,66 @@ name: Build golang base image
 
 on:
   workflow_dispatch:
-  workflow_call:
+  # workflow_call:
   # pull_request:
   # push:
   #   branches:
   #     - 'master'
 
+# on:
+#   workflow_call:
+#     inputs:
+#       sha:
+#         description: 'SHA of the commit to build'
+#         required: true
+#         type: string
+#       force:
+#         description: 'Force build base images'
+#         required: false
+#         default: false
+#         type: boolean
+#       base_sha:
+#         description: 'Base SHA for diff (optional)'
+#         required: false
+#         type: string
+#         default: ${{ github.event.before }}
+#     secrets:
+#       GCP_SERVICE_ACCOUNT:
+#         required: true
+
+env:
+  BUILD_SHA: ${{ github.sha }}
+
 jobs:
-  build-docker-image:
+  # Base image: Golang (1.24.6)
+  images-golang-1-24-6:
+    outputs:
+      tag_exist: ${{ steps.tag_exist.outputs.TAG_EXIST }}
     env:
       Registry: yyovkov
       Image: golang
       BaseTag: 1.24.6
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform:
+          - linux/arm64
+          - linux/amd64
+        include:
+          - platform: linux/amd64
+            runner: ubuntu-latest
+          - platform: linux/arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
     steps:
-      - name: Display Contexts
-        run: | 
-          echo "GitHub SHA github.sha: ${{ github.sha }}"
-          echo "GitHub Ref Name github.ref_name: ${{ github.ref_name }}"
-          echo "GitHub Event Pull Reqeust Head github.event.pull_request.head.sha: ${{ github.event.pull_request.head.sha }}"
-          # only available when the event that triggers a workflow run is either pull_request or pull_request_target.
-          echo "GitHub Base Ref (pr target branch) github.base_ref: ${{ github.base_ref }}"
-          echo "GitHub Base Ref (pr target branch) github.ref_name: ${{ github.ref_name }}"
-          echo "GitHub Head Ref (source branch) github.head_ref: ${{ github.head_ref }}"
-          echo ""
-          echo "GIT_COMMIT=${{ github.event.pull_request.head.sha || github.sha }}"
-          echo "When merging to master the GIT_COMMIT should be equal to github.sha"
-          echo ""
-          echo "Adding whitespace commit for feat/my-feature-02 branch"
+      - name: Prepare Multiplatform
+        run: |
+          platform=${{ matrix.platform }}
+          echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV
 
       - uses: actions/checkout@v4
         timeout-minutes: 1
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
-
-      - name: Set up Docker Buildx
-        timeout-minutes: 1
-        uses: docker/setup-buildx-action@v3
-      
-      - name: Set up Docker Buildx
-        timeout-minutes: 1
-        uses: docker/setup-buildx-action@v3
+          ref: ${{ env.BUILD_SHA }}
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -50,15 +69,89 @@ jobs:
           username: ${{ vars.DEV_DOCKERHUB_USER }}
           password: ${{ secrets.DEV_DOCKERHUB_PAT }}
 
+      - name: Check if docker image tag exists
+        id: tag_exist
+        timeout-minutes: 1
+        run: |
+          echo "Get runner architecture"
+          export CURRENT_RUNNER_ARCH="unknown"
+          [[ ${RUNNER_ARCH,,} == "x64" || ${RUNNER_ARCH,,} == "intel" ]] && CURRENT_RUNNER_ARCH="amd64"
+          [[ ${RUNNER_ARCH,,} == "arm64" ]] && CURRENT_RUNNER_ARCH="arm64"
+          echo "CURRENT_RUNNER_ARCH=${CURRENT_RUNNER_ARCH}"
+
+          echo "Check if tag exists"
+          export TAG_EXIST=$(docker manifest inspect ${{ env.Registry }}/${{ env.Image }}:${{ env.BaseTag }}-${{ env.BUILD_SHA }} \
+            | jq -e --arg arch "${CURRENT_RUNNER_ARCH}" '.manifests[].platform.architecture | select(.==$arch)'  >&2 > /dev/null && echo true || echo false)
+          echo "TAG_EXIST=${TAG_EXIST}" >> $GITHUB_OUTPUT
+          echo "TAG_EXIST=${TAG_EXIST}"
+
+      - name: Set up builder
+        uses: docker/setup-buildx-action@v3
+
       - name: Push prod image
-        timeout-minutes: 15
+        id: build
+        timeout-minutes: 20
+        if: ${{ (steps.tag_exist.outputs.TAG_EXIST  == 'false') || (inputs.force == true)  }}
         uses: docker/build-push-action@v5
         with:
           context: images/golang/1.24.6
+          platforms: ${{ matrix.platform }}
           push: true
-          # temp workaround for newer buildx where images outputed by default are not cloud run compatible https://github.com/docker/buildx/issues/1533
-          provenance: false
-          build-args: GIT_COMMIT=${{ github.event.pull_request.head.sha || github.sha }}
           tags: |
-            ${{ env.Registry }}/${{ env.Image }}:${{ env.BaseTag }}-${{ github.sha }}
-            ${{ github.ref == 'refs/heads/master' && format('{0}/{1}:{2}-latest', env.Registry, env.Image, env.BaseTag) || '' }}
+            ${{ env.Registry }}/${{ env.Image }}:${{ env.BaseTag }}-${{ env.BUILD_SHA }}
+          build-args: GIT_COMMIT=${{ env.BUILD_SHA }}
+          provenance: true
+
+      - name: Export digest
+        if: ${{ (steps.tag_exist.outputs.TAG_EXIST  == 'false') || (inputs.force == true)  }}
+        run: |
+          mkdir -p ${{ runner.temp }}/golang-digests
+          digest="${{ steps.build.outputs.digest }}"
+          touch "${{ runner.temp }}/golang-digests/${digest#sha256:}"
+
+      - name: Upload digest
+        uses: actions/upload-artifact@v4
+        if: ${{ (steps.tag_exist.outputs.TAG_EXIST  == 'false') || (inputs.force == true)  }}
+        with:
+          name: digests-${{ env.Image }}-${{ env.BaseTag }}-${{ env.PLATFORM_PAIR }}
+          path: ${{ runner.temp }}/golang-digests/*
+          if-no-files-found: error
+          retention-days: 1
+
+  merge-images-golang-1-24-6:
+    needs:
+      - images-golang-1-24-6
+    if: ${{ (needs.images-golang-1-24-6.outputs.TAG_EXIST == 'false') || (inputs.force == true) }}
+    runs-on: ubuntu-latest
+    env:
+      Registry: yyovkov
+      Image: golang
+      BaseTag: 1.24.6
+    steps:
+      - name: Download digests
+        uses: actions/download-artifact@v4
+        with:
+          path: ${{ runner.temp }}/golang-digests
+          pattern: digests-${{ env.Image }}-${{ env.BaseTag }}-*
+          merge-multiple: true
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DEV_DOCKERHUB_USER }}
+          password: ${{ secrets.DEV_DOCKERHUB_PAT }}
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.Registry }}/${{ env.Image }}
+          tags: |
+            type=raw,value=${{ env.BaseTag}}-${{ env.BUILD_SHA }}
+
+      - name: Create manifest list and push
+        working-directory: ${{ runner.temp }}/golang-digests
+        run: |
+          docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+            $(printf "${{ env.Registry }}/${{ env.Image }}@sha256:%s " *)
