@@ -61,4 +61,4 @@ jobs:
           build-args: GIT_COMMIT=${{ github.event.pull_request.head.sha || github.sha }}
           tags: |
             ${{ env.Registry }}/${{ env.Image }}:${{ env.BaseTag }}-${{ github.sha }}
-            ${{ github.ref == 'refs/heads/master' && format('{0}/{1}:{2}-latest', env.Registry, env.Image, env.BaseTag) || '' }}
+            ${{ github.ref == 'refs/heads/master' && format('{0}/{1}:{2}', env.Registry, env.Image, env.BaseTag) || '' }}
