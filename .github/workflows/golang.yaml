@@ -11,7 +11,7 @@ on:
 jobs:
   build-docker-image:
     env:
-      Registry: europe-west1-docker.pkg.dev/triple-management/triple
+      Registry: yyovkov/docker
       Image: golang
       BaseTag: 1.24.6
     runs-on: ubuntu-latest
