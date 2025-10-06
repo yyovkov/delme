@@ -11,7 +11,7 @@ on:
 jobs:
   build-docker-image:
     env:
-      Registry: yyovkov/docker
+      Registry: yyovkov
       Image: golang
       BaseTag: 1.24.6
     runs-on: ubuntu-latest
