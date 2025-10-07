@@ -108,7 +108,9 @@ jobs:
           push: true
           tags: |
             ${{ env.Registry }}/${{ env.Image }}:${{ env.BaseTag }}-${{ env.BUILD_SHA }}
-            ${{ github.ref == 'refs/heads/master' && format('{0}/{1}:{2}', env.Registry, env.Image, env.BaseTag) || '' }}
+            ${{ (github.ref == 'refs/heads/master' && steps.tag_exist.outputs.BASE_TAG_EXIST == 'false' ) &&
+                format('{0}/{1}:{2}', env.Registry, env.Image, env.BaseTag) ||
+                '' }}
           build-args: GIT_COMMIT=${{ env.BUILD_SHA }}
           provenance: true
 
@@ -161,7 +163,9 @@ jobs:
             ${{ env.Registry }}/${{ env.Image }}
           tags: |
             type=raw,value=${{ env.BaseTag}}-${{ env.BUILD_SHA }}
-            type=raw,value=${{ ((github.ref == 'refs/heads/master') && (needs.images-golang-1-24-6.outputs.BASE_TAG_EXIST == 'false')) && format('{0}', env.BaseTag) || '' }}
+            type=raw,value=${{ ((github.ref == 'refs/heads/master') && (needs.images-golang-1-24-6.outputs.BASE_TAG_EXIST == 'false'))
+                                && format('{0}', env.BaseTag) ||
+                                '' }}
 
       - name: Create manifest list and push
         working-directory: ${{ runner.temp }}/golang-digests
