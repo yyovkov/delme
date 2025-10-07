@@ -38,6 +38,7 @@ jobs:
   images-golang-1-24-6:
     outputs:
       tag_exist: ${{ steps.tag_exist.outputs.TAG_EXIST }}
+      base_tag_exist: ${{ steps.tag_exist.outputs.BASE_TAG_EXIST }}
     env:
       Registry: yyovkov
       Image: golang
@@ -85,6 +86,13 @@ jobs:
             | jq -e --arg arch "${CURRENT_RUNNER_ARCH}" '.manifests[].platform.architecture | select(.==$arch)'  >&2 > /dev/null && echo true || echo false)
           echo "TAG_EXIST=${TAG_EXIST}" >> $GITHUB_OUTPUT
           echo "TAG_EXIST=${TAG_EXIST}"
+
+          echo "Check if base tag exists"
+          export BASE_TAG_EXIST=$(docker manifest inspect ${{ env.Registry }}/${{ env.Image }}:${{ env.BaseTag }} \
+            | jq -e --arg arch "${CURRENT_RUNNER_ARCH}" '.manifests[].platform.architecture | select(.==$arch)'  >&2 > /dev/null && echo true || echo false)
+          echo "BASE_TAG_EXIST=${BASE_TAG_EXIST}" >> $GITHUB_OUTPUT
+          echo "BASETAG_EXIST=${BASE_TAG_EXIST}"
+
 
       - name: Set up builder
         uses: docker/setup-buildx-action@v3
@@ -151,7 +159,7 @@ jobs:
             ${{ env.Registry }}/${{ env.Image }}
           tags: |
             type=raw,value=${{ env.BaseTag}}-${{ env.BUILD_SHA }}
-            type=raw,value=${{ github.ref == 'refs/heads/master' && format('{0}', env.BaseTag) || '' }}
+            type=raw,value=${{ ((github.ref == 'refs/heads/master') || (needs.images-golang-1-24-6.outputs.BASE_TAG_EXIST == 'false')) && format('{0}', env.BaseTag) || '' }}
 
       - name: Create manifest list and push
         working-directory: ${{ runner.temp }}/golang-digests
