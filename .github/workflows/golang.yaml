@@ -99,6 +99,7 @@ jobs:
           push: true
           tags: |
             ${{ env.Registry }}/${{ env.Image }}:${{ env.BaseTag }}-${{ env.BUILD_SHA }}
+            ${{ github.ref == 'refs/heads/master' && format('{0}/{1}:{2}', env.Registry, env.Image, env.BaseTag) || '' }}
           build-args: GIT_COMMIT=${{ env.BUILD_SHA }}
           provenance: true
 
