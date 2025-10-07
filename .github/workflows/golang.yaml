@@ -151,7 +151,7 @@ jobs:
             ${{ env.Registry }}/${{ env.Image }}
           tags: |
             type=raw,value=${{ env.BaseTag}}-${{ env.BUILD_SHA }}
-            ${{ github.ref == 'refs/heads/master' && format('{0}/{1}:{2}', env.Registry, env.Image, env.BaseTag) || '' }}
+            ${{ github.ref == 'refs/heads/master' && format('{0}-{1}:{2}', env.BaseTag, env.BUILD_SHA) || '' }}
 
       - name: Create manifest list and push
         working-directory: ${{ runner.temp }}/golang-digests
