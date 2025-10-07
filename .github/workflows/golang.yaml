@@ -1,4 +1,5 @@
 name: Build golang base image
+# Zero change
 
 on:
   workflow_dispatch:
