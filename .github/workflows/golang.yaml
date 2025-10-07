@@ -131,7 +131,7 @@ jobs:
   merge-images-golang-1-24-6:
     needs:
       - images-golang-1-24-6
-    if: ${{ (needs.images-golang-1-24-6.outputs.TAG_EXIST == 'false') || (inputs.force == true) }}
+    if: ${{ (needs.images-golang-1-24-6.outputs.TAG_EXIST == 'false') || (needs.images-golang-1-24-6.outputs.BASE_TAG_EXIST == 'false') || (inputs.force == true) }}
     runs-on: ubuntu-latest
     env:
       Registry: yyovkov
