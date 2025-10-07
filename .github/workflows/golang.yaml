@@ -70,25 +70,7 @@ jobs:
           username: ${{ vars.DEV_DOCKERHUB_USER }}
           password: ${{ secrets.DEV_DOCKERHUB_PAT }}
 
-      - name: Check if docker image tag exists
-        id: tag_exist
-        timeout-minutes: 1
-        run: |
-          echo "Get runner architecture"
-          export CURRENT_RUNNER_ARCH="unknown"
-          [[ ${RUNNER_ARCH,,} == "x64" || ${RUNNER_ARCH,,} == "intel" ]] && CURRENT_RUNNER_ARCH="amd64"
-          [[ ${RUNNER_ARCH,,} == "arm64" ]] && CURRENT_RUNNER_ARCH="arm64"
-          echo "CURRENT_RUNNER_ARCH=${CURRENT_RUNNER_ARCH}"
-
-          echo "Check if tag exists"
-          export TAG_EXIST=$(docker manifest inspect ${{ env.Registry }}/${{ env.Image }}:${{ env.BaseTag }}-${{ env.BUILD_SHA }} \
-            | jq -e --arg arch "${CURRENT_RUNNER_ARCH}" '.manifests[].platform.architecture | select(.==$arch)'  >&2 > /dev/null && echo true || echo false)
-          echo "TAG_EXIST=${TAG_EXIST}" >> $GITHUB_OUTPUT
-          echo "TAG_EXIST=${TAG_EXIST}"
-
-      - name: Set up builder
-        uses: docker/setup-buildx-action@v3
-
+      # Adding this line for zero-change test
       - name: Push prod image
         id: build
         timeout-minutes: 20
@@ -99,61 +81,5 @@ jobs:
           platforms: ${{ matrix.platform }}
           push: true
           tags: |
-            ${{ env.Registry }}/${{ env.Image }}:${{ env.BaseTag }}-${{ env.BUILD_SHA }}
+            ${{ env.Registry }}/${{ env.Image }}:${{ env.BaseTag }}-${{ github.sha }}
             ${{ github.ref == 'refs/heads/master' && format('{0}/{1}:{2}', env.Registry, env.Image, env.BaseTag) || '' }}
-          build-args: GIT_COMMIT=${{ env.BUILD_SHA }}
-          provenance: true
-
-      - name: Export digest
-        if: ${{ (steps.tag_exist.outputs.TAG_EXIST  == 'false') || (inputs.force == true)  }}
-        run: |
-          mkdir -p ${{ runner.temp }}/golang-digests
-          digest="${{ steps.build.outputs.digest }}"
-          touch "${{ runner.temp }}/golang-digests/${digest#sha256:}"
-
-      - name: Upload digest
-        uses: actions/upload-artifact@v4
-        if: ${{ (steps.tag_exist.outputs.TAG_EXIST  == 'false') || (inputs.force == true)  }}
-        with:
-          name: digests-${{ env.Image }}-${{ env.BaseTag }}-${{ env.PLATFORM_PAIR }}
-          path: ${{ runner.temp }}/golang-digests/*
-          if-no-files-found: error
-          retention-days: 1
-
-  merge-images-golang-1-24-6:
-    needs:
-      - images-golang-1-24-6
-    if: ${{ (needs.images-golang-1-24-6.outputs.TAG_EXIST == 'false') || (inputs.force == true) }}
-    runs-on: ubuntu-latest
-    env:
-      Registry: yyovkov
-      Image: golang
-      BaseTag: 1.24.6
-    steps:
-      - name: Download digests
-        uses: actions/download-artifact@v4
-        with:
-          path: ${{ runner.temp }}/golang-digests
-          pattern: digests-${{ env.Image }}-${{ env.BaseTag }}-*
-          merge-multiple: true
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ vars.DEV_DOCKERHUB_USER }}
-          password: ${{ secrets.DEV_DOCKERHUB_PAT }}
-
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: |
-            ${{ env.Registry }}/${{ env.Image }}
-          tags: |
-            type=raw,value=${{ env.BaseTag}}-${{ env.BUILD_SHA }}
-
-      - name: Create manifest list and push
-        working-directory: ${{ runner.temp }}/golang-digests
-        run: |
-          docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
-            $(printf "${{ env.Registry }}/${{ env.Image }}@sha256:%s " *)
