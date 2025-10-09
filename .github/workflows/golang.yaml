@@ -93,14 +93,13 @@ jobs:
           echo "BASE_TAG_EXIST=${BASE_TAG_EXIST}" >> $GITHUB_OUTPUT
           echo "BASETAG_EXIST=${BASE_TAG_EXIST}"
 
-
       - name: Set up builder
         uses: docker/setup-buildx-action@v3
 
       - name: Push prod image
         id: build
         timeout-minutes: 20
-        if: ${{ (steps.tag_exist.outputs.TAG_EXIST  == 'false') || (inputs.force == true)  }}
+        if: ${{ steps.tag_exist.outputs.TAG_EXIST  == 'false' || steps.tag_exist.outputs.BASE_TAG_EXIST  == 'false'  || inputs.force == true  }}
         uses: docker/build-push-action@v5
         with:
           context: images/golang/1.24.6
@@ -115,7 +114,7 @@ jobs:
           provenance: true
 
       - name: Export digest
-        if: ${{ (steps.tag_exist.outputs.TAG_EXIST  == 'false') || (inputs.force == true)  }}
+        if: ${{ steps.tag_exist.outputs.TAG_EXIST  == 'false' || steps.tag_exist.outputs.BASE_TAG_EXIST  == 'false'  || inputs.force == true  }}
         run: |
           mkdir -p ${{ runner.temp }}/golang-digests
           digest="${{ steps.build.outputs.digest }}"
@@ -123,7 +122,7 @@ jobs:
 
       - name: Upload digest
         uses: actions/upload-artifact@v4
-        if: ${{ (steps.tag_exist.outputs.TAG_EXIST  == 'false') || (inputs.force == true)  }}
+        if: ${{ steps.tag_exist.outputs.TAG_EXIST  == 'false' || steps.tag_exist.outputs.BASE_TAG_EXIST  == 'false'  || inputs.force == true  }}
         with:
           name: digests-${{ env.Image }}-${{ env.BaseTag }}-${{ env.PLATFORM_PAIR }}
           path: ${{ runner.temp }}/golang-digests/*
