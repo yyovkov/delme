@@ -1,0 +1,2 @@
+ARG FROM alpine:${UPSTREAM_TAG_ALPINE}
+

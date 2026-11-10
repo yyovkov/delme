@@ -1,0 +1,62 @@
+name: BUILD BASE IMAGES
+
+on:
+  workflow_dispatch:
+
+env:
+  BUILD_SHA: ${{ inputs.sha }}
+
+jobs:
+  docker_tags:
+    runs-on: ubuntu-24.04
+    outputs:
+      alpine: ${{ steps.env.outputs.DOCKER_TAG_ALPINE }}
+      cc_debian: ${{ steps.env.outputs.DOCKER_TAG_CC_DEBIAN }}
+      golang: ${{ steps.env.outputs.DOCKER_TAG_GOLANG }}
+      protoc: ${{ steps.env.outputs.DOCKER_TAG_PROTOC }}
+      python: ${{ steps.env.outputs.DOCKER_TAG_PYTHON }}
+      temporal_server: ${{ steps.env.outputs.DOCKER_TAG_TEMPORAL_SERVER }}
+      uv: ${{ steps.env.outputs.DOCKER_TAG_UV }}
+    steps:
+      - uses: actions/checkout@v6
+        timeout-minutes: 1
+        with:
+          ref: ${{ env.BUILD_SHA }}
+      - name: Read docker tags variables
+        id: env
+        run: |
+          cat images/build-base-images.env >> $GITHUB_OUTPUT
+
+  image-alpine:
+    runs-on: ubuntu-24.04
+    needs:
+      - docker_tags
+    outputs:
+      base_tag: ${{ env.BaseTag }}
+    env:
+      Image: alpine
+      BaseTag: ${{ needs.docker_tags.outputs.alpine }}
+    steps:
+      - name: Display variables
+        id: vars_display
+        run: |
+          echo "Docker tags"
+          echo alpine: ${{ needs.docker_tags.outputs.alpine }}
+          echo cc_debian: ${{ needs.docker_tags.outputs.cc_debian }}
+          echo golang: ${{ needs.docker_tags.outputs.golang }}
+          echo protoc: ${{ needs.docker_tags.outputs.protoc }}
+          echo python: ${{ needs.docker_tags.outputs.python}}
+          echo temporal_server: ${{ needs.docker_tags.outputs.temporal_server }}
+          echo uv: ${{ needs.docker_tags.outputs.uv }}
+          echo "===================="
+          echo Image: ${{ env.Image }}
+          echo BaseTag: ${{ env.BaseTag }}
+
+  merge-image-alpine:
+    runs-on: ubuntu-24.04
+    needs:
+      - image-alpine
+    steps:
+      - name: Display variables
+        run: |
+          echo BaseTag: ${{ needs.image-alpine.outputs.base_tag }}
