@@ -35,8 +35,11 @@ jobs:
       base_tag: ${{ env.BaseTag }}
     env:
       Image: alpine
-      BaseTag: ${{ needs.docker_tags.outputs.alpine }}
     steps:
+      - name: Set environments
+        id: vars
+        run: |
+          echo "BaseTag=${{ needs.docker_tags.outputs[env.Image }}" >> $GITHUB_ENV
       - name: Display variables
         id: vars_display
         run: |
