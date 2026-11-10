@@ -39,7 +39,7 @@ jobs:
       - name: Set environments
         id: vars
         run: |
-          echo "BaseTag=${{ needs.docker_tags.outputs[env.Image }}" >> $GITHUB_ENV
+          echo "BaseTag=${{ needs.docker_tags.outputs[env.Image] }}" >> $GITHUB_ENV
       - name: Display variables
         id: vars_display
         run: |
